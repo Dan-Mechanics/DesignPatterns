@@ -1,0 +1,7 @@
+i want to make it so that
+i have custom bidnigns input
+and then cool decorator for the gun and 
+then objectpool for the gameobjects of the bullets
+and then FSM cocnept which i already have somewhat for the reloading
+and silencer remover.
+
