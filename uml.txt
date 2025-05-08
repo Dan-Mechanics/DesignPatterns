@@ -1,0 +1,126 @@
+@startuml
+
+class FSM<T>
+{
+    + states : readonly Dictionary<Type, T>
+    -currentState: T
+    
+    + void AddState(key: Type, value: T)
+    + void TransitionTo(type: Type)
+    + void Update()
+}
+
+interface IInteractable
+{
+    + void Interact(type: Type)
+}
+
+interface IState 
+{
+    + void Setup(fsm : FSM)
+    + void EnterState()
+    + void Update()
+    + void ExitState()
+}
+
+class Timer
+{
+    + onTimerComplete: event Action
+    
+    + void SetTimer(value: float)
+}
+
+class HealthStateHandler implements IInteractable
+{
+    - fsm: readonly FSM<HealthState>
+    
+    + Setup()
+    + Update()
+    + Interact(type: Type)
+}
+
+class KillerAttacks
+{
+    + void Slash()
+    + void Infect()
+}
+
+class DestroyableProp implements IInteractable
+{
+    + void Interact(type: Type)
+    - void Destroy();
+}
+
+abstract class HealthState implements IState 
+{
+    + onEnter: event Action
+    + onExit: event Action
+    # fsm: FSM
+    
+    + virtual void Setup(fsm : FSM)
+    + virtual void EnterState()
+    + virtual void Update()
+    + virtual void ExitState()
+    + virtual void Interact(type: Type)
+}
+
+
+class HealthyState extends HealthState 
+{
+    + override Setup(fsm : FSM)
+    + override EnterState()
+    + override Update()
+    + override ExitState()
+}
+
+class InjuredState extends HealthState 
+{
+    + override Setup(fsm : FSM)
+    + override EnterState()
+    + override Update()
+    + override ExitState()
+}
+
+class DeepWoundState extends HealthState 
+{
+    - timer : Timer
+    
+    + override void Setup(fsm : FSM)
+    + override void EnterState()
+    + override void Update()
+    + override void ExitState()
+    + override void Interact(type: Type)
+}
+
+class DownedState extends HealthState 
+{
+    -recoveryProgress: float
+    
+    + override void Setup(fsm : FSM)
+    + override void EnterState()
+    + override void Update()
+    + override void ExitState()
+    + override void Interact(type: Type)
+}
+
+class InfectedState extends HealthState 
+{
+    - timer : Timer
+    
+    + override void Setup(fsm : FSM)
+    + override void EnterState()
+    + override void Update()
+    + override void ExitState()
+    + override void Interact(type: Type)
+}
+
+FSM --* HealthStateHandler
+Timer --* DeepWoundState
+Timer --*  InfectedState
+FSM ..> IState
+HealthStateHandler ..> HealthState
+KillerAttacks ..> IInteractable
+
+note "TIM CREDIT: GEMINI AI gebruikt alleen voor het leren van UML." as TimNote1
+
+@enduml
