@@ -5,3 +5,11 @@ then objectpool for the gameobjects of the bullets
 and then FSM cocnept which i already have somewhat for the reloading
 and silencer remover.
 
+the inputs of the state machine would prolly be the key presses /
+shoot
+reload
+silencer
+
+or some other action
+
+maybe inspect even.
