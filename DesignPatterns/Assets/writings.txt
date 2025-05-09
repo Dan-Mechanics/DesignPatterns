@@ -1,3 +1,6 @@
+make suer all the yeets are in namespaces.
+
+
 make sure to remove all unused scripts for clarity.
 
 the decorator needs to be like the one from equilbruium.

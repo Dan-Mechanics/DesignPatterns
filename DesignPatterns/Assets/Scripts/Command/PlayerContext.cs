@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace DesignPatterns
 {
-    public class DummyPlayer : MonoBehaviour
+    public class PlayerContext : MonoBehaviour
     {
         private readonly InputHandler handler = new InputHandler();
+
+        private readonly FSM<WeaponState> fsm = new FSM<WeaponState>();
 
         private void Start()
         {
