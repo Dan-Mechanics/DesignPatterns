@@ -1,3 +1,5 @@
+make sure to remove all unused scripts for clarity.
+
 the decorator needs to be like the one from equilbruium.
 
 make sure to not include text mesh pro because is laggy ish.
