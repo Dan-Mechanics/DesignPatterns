@@ -1,4 +1,4 @@
-﻿namespace ObjectPoolPattern 
+﻿namespace DesignPatterns 
 {
     public interface IPoolable
     {

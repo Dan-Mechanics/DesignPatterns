@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ObjectPoolPattern
+namespace DesignPatterns
 {
     public class ObjectPoolTest : MonoBehaviour
     {

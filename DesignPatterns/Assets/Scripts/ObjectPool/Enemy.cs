@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ObjectPoolPattern
+namespace DesignPatterns
 {
     public class Enemy : IPoolable
     {

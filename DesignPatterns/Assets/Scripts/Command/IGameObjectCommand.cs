@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGameObjectCommand
+namespace DesignPatterns
 {
-    void Execute(GameObject actor);
+    public interface IGameObjectCommand
+    {
+        void Execute(GameObject actor);
+    }
 }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSwitchCommand : IGameObjectCommand
+namespace DesignPatterns
 {
-    public void Execute(GameObject actor)
+    public class WeaponSwitchCommand : IGameObjectCommand
     {
-        Debug.Log($"{actor.name} weapon switch!");
+        public void Execute(GameObject actor)
+        {
+            Debug.Log($"{actor.name} weapon switch!");
+        }
     }
 }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : IGameObjectCommand
+namespace DesignPatterns
 {
-    public void Execute(GameObject actor)
+    public class JumpCommand : IGameObjectCommand
     {
-        Debug.Log($"{actor.name} has jumped!");
+        public void Execute(GameObject actor)
+        {
+            Debug.Log($"{actor.name} has jumped!");
+        }
     }
 }

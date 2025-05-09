@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ObjectPoolPattern
+namespace DesignPatterns
 {
     public class ObjectPool<T> where T : IPoolable
     {
