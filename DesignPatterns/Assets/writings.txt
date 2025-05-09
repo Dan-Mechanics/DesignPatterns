@@ -5,6 +5,9 @@ maybe for input we can look at oobserver instead of command
 but i feel like in this context command is better becasue obserover
 has eventmanger connotiations.
 
+also need to make sure the object pool is fine tuned for gameobject specifically,
+we are still useing unity here after all so yeah. also look to keep the code somewhat SOLID.
+
 ===
 
 i want to make it so that
