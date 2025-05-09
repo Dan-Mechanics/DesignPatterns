@@ -1,3 +1,12 @@
+the decorator needs to be like the one from equilbruium.
+
+make sure to not include text mesh pro because is laggy ish.
+maybe for input we can look at oobserver instead of command
+but i feel like in this context command is better becasue obserover
+has eventmanger connotiations.
+
+===
+
 i want to make it so that
 i have custom bidnigns input
 and then cool decorator for the gun and 
