@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace DesignPatterns
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/" + nameof(BaseTerrain), fileName = "New " + nameof(BaseTerrain))]
-    public class BaseTerrain : ScriptableObject, ITerrainable, ITerrainableColorable
+    [CreateAssetMenu(menuName = "ScriptableObject/" + nameof(BaseWeapon), fileName = "New " + nameof(BaseWeapon))]
+    public class BaseWeapon : ScriptableObject, IWeapon
     {
-        [Header("Terrain")]
+        [Header(nameof(BaseWeapon))]
        // public Biome biome;
         public float waterHeight;
         //public float introductionTime;

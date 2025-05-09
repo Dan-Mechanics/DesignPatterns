@@ -9,7 +9,7 @@ namespace DesignPatterns
     /// I think im overthinking it in this context but in the future i could split this enum into 
     /// different types of shit.
     /// </summary>
-    public interface ITerrainable 
+    public interface IWeapon 
     {
         /// <summary>
         /// This will mean we have to do some memes

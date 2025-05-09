@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DesignPatterns
 {
     [CreateAssetMenu(menuName = "ScriptableObject/" + nameof(MeshOffsetDecorator), fileName = "New " + nameof(MeshOffsetDecorator))]
-    public class MeshOffsetDecorator : TerrainDecorator
+    public class MeshOffsetDecorator : WeaponDecorator
     {
         public float verticalOffset;
 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DesignPatterns
 {
     [CreateAssetMenu(menuName = "ScriptableObject/" + nameof(MeshClampDecorator), fileName = "New " + nameof(MeshClampDecorator))]
-    public class MeshClampDecorator : TerrainDecorator
+    public class MeshClampDecorator : WeaponDecorator
     {
         //public ConstraintType constraintType;
         public float height;

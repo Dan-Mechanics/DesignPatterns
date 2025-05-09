@@ -8,7 +8,7 @@ namespace DesignPatterns
     {
         // inspector interface for scriptable objects here.
         
-        public BaseTerrain baseTerrain;
-        public TerrainDecorator[] decorators;
+        public BaseWeapon baseTerrain;
+        public WeaponDecorator[] decorators;
     }
 }

@@ -11,16 +11,16 @@ namespace DesignPatterns
     /// It might be smart to seperate differennt vibes
     /// so like material and mesh are different for performance but whatever.
     /// </summary>
-    public abstract class TerrainDecorator : ScriptableObject, ITerrainable
+    public abstract class WeaponDecorator : ScriptableObject, IWeapon
     {
-        protected ITerrainable terrainable;
+        protected IWeapon terrainable;
 
         /// <summary>
         /// This COULD also return a new Iterrainalbe which might make sense but now 
         /// it doesnt because its about the method huh.
         /// </summary>
         /// <param name="terrainable"></param>
-        public TerrainDecorator Decorate(ITerrainable terrainable) 
+        public WeaponDecorator Decorate(IWeapon terrainable) 
         {
             // why do i need to disable this ffs?
 

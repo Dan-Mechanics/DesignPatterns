@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DesignPatterns
 {
     [CreateAssetMenu(menuName = "ScriptableObject/" + nameof(TerrainCrunchDecorator), fileName = "New " + nameof(TerrainCrunchDecorator))]
-    public class TerrainCrunchDecorator : TerrainDecorator
+    public class TerrainCrunchDecorator : WeaponDecorator
     {
         public float meshFloor;        // min max etc etc
         public float meshCeiling;      // min max etc etc

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DesignPatterns
 {
     [CreateAssetMenu(menuName = "ScriptableObject/" + nameof(PerlinDecorator), fileName = "New " + nameof(PerlinDecorator))]
-    public class PerlinDecorator : TerrainDecorator
+    public class PerlinDecorator : WeaponDecorator
     {
         [Min(0f)] public float height;
         [Min(0f)] public float noiseScale;
