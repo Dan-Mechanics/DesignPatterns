@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICommand
+public interface IWeaponCommand
 {
-    void Execute();
-    void Undo();
+    void Execute(WeaponState weaponState);
 }

@@ -9,7 +9,7 @@ public class DummyPlayer : MonoBehaviour
     private void Start()
     {
         handler.Bind(KeyCode.E, new SwapGunCommand());
-        var fireGunCommand = new FireGunCommand();
+        var fireGunCommand = new PrimaryFireCommand();
 
         handler.Bind(KeyCode.Mouse0, fireGunCommand);
         handler.Bind(KeyCode.Mouse1, fireGunCommand);

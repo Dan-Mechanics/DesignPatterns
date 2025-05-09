@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwapGunCommand : ICommand
+public class SwapGunCommand : IWeaponCommand
 {
-    public void Execute() => Swap();
-
-    public void Undo() { }
-
-    private void Swap()
+    public void Execute(WeaponState weaponState)
     {
-        Debug.Log("Swap !!!");
+        throw new System.NotImplementedException();
     }
 }

@@ -24,6 +24,34 @@ public interface IState
     void ExitState();
 }
 
+public abstract class WeaponState : IState
+{
+    public virtual void DoPrimaryFire() 
+    {
+
+    }
+    
+    public void EnterState()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ExitState()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Setup(FSM<IState> fsm)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update()
+    {
+        throw new NotImplementedException();
+    }
+}
+
 /*public interface IState 
 {
     void Setup(FSM fsm);

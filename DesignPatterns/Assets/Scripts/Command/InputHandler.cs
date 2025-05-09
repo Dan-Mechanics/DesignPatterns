@@ -17,7 +17,7 @@ public class InputHandler
         }
     }
 
-    public void Bind(KeyCode key, ICommand command) 
+    public void Bind(KeyCode key, IWeaponCommand command) 
     {
         bindings.Add(new Binding(key, command));
     }
@@ -32,9 +32,9 @@ public class InputHandler
     public class Binding 
     {
         public KeyCode key;
-        public ICommand command;
+        public IWeaponCommand command;
 
-        public Binding(KeyCode key, ICommand command)
+        public Binding(KeyCode key, IWeaponCommand command)
         {
             this.key = key;
             this.command = command;
