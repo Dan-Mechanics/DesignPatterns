@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwapGunCommand : IWeaponCommand
+namespace DesignPatterns
 {
-    public void Execute(WeaponState weaponState)
+    public class SwapGunCommand : IWeaponCommand
     {
-        throw new System.NotImplementedException();
+        public void Execute(WeaponState weaponState, IWeapon weapon)
+        {
+            throw new System.NotImplementedException();
+        }
     }
+
 }

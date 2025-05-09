@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DummyPlayer : MonoBehaviour
+namespace DesignPatterns
 {
-    private readonly InputHandler handler = new InputHandler();
-
-    private void Start()
+    public class DummyPlayer : MonoBehaviour
     {
-        handler.Bind(KeyCode.E, new SwapGunCommand());
-        var fireGunCommand = new PrimaryFireCommand();
+        private readonly InputHandler handler = new InputHandler();
 
-        handler.Bind(KeyCode.Mouse0, fireGunCommand);
-        handler.Bind(KeyCode.Mouse1, fireGunCommand);
-    }
+        private void Start()
+        {
+            handler.Bind(KeyCode.E, new SwapGunCommand());
+            var fireGunCommand = new PrimaryFireCommand();
 
-    private void Update()
-    {
-        handler.Update();
+            handler.Bind(KeyCode.Mouse0, fireGunCommand);
+            handler.Bind(KeyCode.Mouse1, fireGunCommand);
+        }
+
+        private void Update()
+        {
+            handler.Update();
+        }
     }
 }

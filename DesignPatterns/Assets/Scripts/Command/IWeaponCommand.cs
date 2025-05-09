@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IWeaponCommand
+namespace DesignPatterns
 {
-    void Execute(WeaponState weaponState);
+    public interface IWeaponCommand
+    {
+        void Execute(WeaponState weaponState, IWeapon weapon);
+    }
+
 }
