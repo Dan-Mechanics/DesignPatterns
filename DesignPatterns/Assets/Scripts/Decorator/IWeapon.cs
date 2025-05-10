@@ -1,23 +1,13 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace DesignPatterns
 {
-    /// <summary>
-    /// Question for Aaron: does this break the interface segregation principle?
-    /// I think im overthinking it in this context but in the future i could split this enum into 
-    /// different types of shit.
-    /// </summary>
     public interface IWeapon 
     {
-        /// <summary>
-        /// This will mean we have to do some memes
-        /// </summary>
-        float GetHeightAtPoint(float x, float y, float z);
+        string GetName();
+        float GetReloadTime();
+        int GetMaxBullets();
+        float GetDamage();
+        float GetShootInterval();
 
-        int GetSize();
-        float GetWaterHeight();
-        //Biome GetBiome();
+        // Or what have you ...
     }
 }
