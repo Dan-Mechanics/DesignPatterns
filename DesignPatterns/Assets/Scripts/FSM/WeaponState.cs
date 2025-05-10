@@ -10,29 +10,17 @@ namespace DesignPatterns
     /// </summary>
     public abstract class WeaponState : IState
     {
-        public virtual void DoPrimaryFire(IWeapon weapon)
-        {
+        protected FSM<WeaponState> fsm;
+        protected InputHandler inputHandler;
 
+        protected WeaponState(FSM<WeaponState> fsm, InputHandler inputHandler)
+        {
+            this.fsm = fsm;
+            this.inputHandler = inputHandler;
         }
 
-        public void EnterState()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ExitState()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Setup(FSM<IState> fsm)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void EnterState() { }
+        public virtual void Update() { }
+        public virtual void ExitState() { }
     }
 }
