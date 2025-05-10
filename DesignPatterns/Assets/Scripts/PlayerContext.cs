@@ -6,11 +6,11 @@ namespace DesignPatterns
 {
     public class PlayerContext : MonoBehaviour
     {
-        private readonly InputHandler handler = new InputHandler();
+        private readonly InputHandlerObserver handler = new InputHandlerObserver();
 
         private readonly FSM<WeaponState> fsm = new FSM<WeaponState>();
 
-        private void Start()
+        /*private void Start()
         {
             handler.Bind(KeyCode.E, new SwapGunCommand());
             var fireGunCommand = new PrimaryFireCommand();
@@ -22,6 +22,6 @@ namespace DesignPatterns
         private void Update()
         {
             handler.Update();
-        }
+        }*/
     }
 }

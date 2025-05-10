@@ -11,7 +11,7 @@ namespace DesignPatterns
         //[SerializeField] private ScriptableInterface<IWeapon> baseWeapon = default;
 
         [SerializeField] private InspectorInterface<IVertsPasser> memes = default;
-
+        [SerializeField] private InputHandlerObserver inputHandler = default;
         //public UnityEvent<float> UnityEvent => unityEvent;
 
         //UnityEvent<float> IFoo<float>.UnityEvent => someevent;
@@ -24,8 +24,8 @@ namespace DesignPatterns
 
         private void Awake()
         {
-           // baseWeapon.Setup();
-
+            // baseWeapon.Setup();
+            //inputHandler.GetMoment(InputHandlerObserver.AssociatedAction.PrimaryFire).OnDown += 
             memes.Setup();
 
             memes.attached.OnPassVerts += Attached_OnPassVerts;
