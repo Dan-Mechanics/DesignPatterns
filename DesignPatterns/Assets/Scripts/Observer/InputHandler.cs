@@ -6,6 +6,8 @@ namespace DesignPatterns
 {
     public class InputHandler
     {
+        //public Dictionary<PlayerAction, InputPair> Conversions => conversions;
+
         /// <summary>
         /// Ideally we load this is via config file.
         /// </summary>
@@ -88,6 +90,14 @@ namespace DesignPatterns
                     conversions[binding.playerAction].OnUp?.Invoke();
                 }
             }
+        }
+
+        public InputPair GetInputPair(PlayerAction playerAction) 
+        {
+            if (!conversions.ContainsKey(playerAction))
+                return null;
+
+            return conversions[playerAction];
         }
 
         [Serializable]
