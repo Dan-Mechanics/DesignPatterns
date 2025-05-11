@@ -15,13 +15,11 @@ namespace DesignPatterns
         private bool isButtonPressed;
         private float nextShootTime;
         private int bulletsLeft;
-        private FixedTicks fixedTicks;
 
         public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, ReloadingWeaponState reloading, IWeapon weapon) : base(fsm, inputHandler)
         {
             reloading.OnReload += Reload;
             this.weapon = weapon;
-            this.fixedTicks = new FixedTicks(weapon.GetShootInterval());
 
             Reload();
         }
@@ -42,14 +40,8 @@ namespace DesignPatterns
         {
             base.Update();
 
-            // This means that if our framerate is lesser than our shoot interval,
-            // the player still does the same amount of dmg.
-            for (int i = 0; i < fixedTicks.GetTicksCount(Time.deltaTime); i++)
-            {
-                if (isButtonPressed && Time.time >= nextShootTime && bulletsLeft > 0)
-                    ShootBullet();
-            }
-            
+            if (isButtonPressed && Time.time >= nextShootTime && bulletsLeft > 0)
+                ShootBullet();
         }
 
         public override void ExitState()
@@ -83,7 +75,7 @@ namespace DesignPatterns
             fsm.TransitionTo(typeof(ReloadingWeaponState));
         }
 
-        public void Reload() => bulletsLeft = weapon.GetMaxBullets();
+        private void Reload() => bulletsLeft = weapon.GetMaxBullets();
 
         public void ShootBullet() 
         {
