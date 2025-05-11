@@ -16,10 +16,12 @@ namespace DesignPatterns
         }
 
         public virtual float GetDamage() => weapon.GetDamage();
+        public virtual float GetMaxBulletRange() => weapon.GetMaxBulletRange();
         public virtual int GetMaxBullets() => weapon.GetMaxBullets();
         public virtual string GetName() => weapon.GetName();
+        public virtual AudioClip GetReloadSound() => weapon.GetReloadSound();
         public virtual float GetReloadTime() => weapon.GetReloadTime();
         public virtual float GetShootInterval() => weapon.GetShootInterval();
-        public virtual float GetMaxBulletRange() => weapon.GetMaxBulletRange();
+        public virtual AudioClip GetShootSound() => weapon.GetShootSound();
     }
 }

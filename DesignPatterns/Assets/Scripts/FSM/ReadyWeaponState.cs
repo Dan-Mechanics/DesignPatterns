@@ -7,6 +7,10 @@ namespace DesignPatterns
 {
     /// <summary>
     /// Make sure to look at lsikov subsitution princple for this shit.
+    /// 
+    /// We could have it so that we can keep holding down the input and it keeps firing.
+    /// 
+    /// I could make a builder for this.
     /// </summary>
     public class ReadyWeaponState : WeaponState
     {
@@ -14,15 +18,18 @@ namespace DesignPatterns
         private float nextShootTime;
         private int bulletsLeft;
         private Transform eyes;
-        private LayerMask mask;
+        private GameObject prefab;
 
-        public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, ReloadingWeaponState reloading, Transform eyes) : base(fsm, inputHandler, weapon)
+        public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
+
+        public ReadyWeaponState Setup(ReloadingWeaponState reloading, Transform eyes, GameObject prefab) 
         {
             reloading.OnReload += Reload;
-            //this.weapon = weapon;
             Reload();
             this.eyes = eyes;
-            mask = LayerMask.NameToLayer("Default");
+            this.prefab = prefab;
+
+            return this;
         }
 
         public override void EnterState()
@@ -85,13 +92,15 @@ namespace DesignPatterns
             
             Debug.Log($"shooting {weapon.GetName()} with {weapon.GetDamage()} damage | ({bulletsLeft}/{weapon.GetMaxBullets()}) bullets left");
 
+            source.PlayOneShot(weapon.GetShootSound());
+
             // Example code.
-            if (Physics.Raycast(eyes.position, eyes.forward, out RaycastHit hit, weapon.GetMaxBulletRange(), mask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(eyes.position, eyes.forward, out RaycastHit hit, weapon.GetMaxBulletRange()))
             {
                 // spawn an effect here.
-
+                Debug.Log("hello");
                 // !OBJECT POOL HERE
-                GameObject effect = Object.Instantiate(new GameObject());
+                GameObject effect = Object.Instantiate(prefab);
 
                 effect.transform.position = hit.point;
                 effect.transform.forward = hit.normal;

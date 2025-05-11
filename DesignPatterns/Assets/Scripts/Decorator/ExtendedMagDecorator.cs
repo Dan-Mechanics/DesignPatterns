@@ -7,10 +7,13 @@ namespace DesignPatterns
     {
         [Header(nameof(ExtendedMagDecorator))]
         [Min(1)] public int bulletGained;
+        public AudioClip newReloadSound;
 
         public override int GetMaxBullets()
         {
             return base.GetMaxBullets() + bulletGained;
         }
+
+        public override AudioClip GetReloadSound() => newReloadSound;
     }
 }

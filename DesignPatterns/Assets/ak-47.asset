@@ -16,3 +16,6 @@ MonoBehaviour:
   maxBullets: 30
   damage: 10
   shootInterval: 0.1
+  maxBulletRange: 250
+  shootSound: {fileID: 8300000, guid: fd2fb84fc903a7942a2dac9ef1c899c8, type: 3}
+  reloadSound: {fileID: 8300000, guid: fd2fb84fc903a7942a2dac9ef1c899c8, type: 3}

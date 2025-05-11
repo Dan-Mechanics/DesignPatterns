@@ -13,7 +13,7 @@ namespace DesignPatterns
         public event Action OnReload;
         private readonly Timer timer;
 
-        public ReloadingWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon) : base(fsm, inputHandler, weapon)
+        public ReloadingWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source)
         {
             //this.source = source;
             timer = new Timer();
@@ -22,7 +22,9 @@ namespace DesignPatterns
         public override void EnterState()
         {
             base.EnterState();
+            
             timer.SetValue(weapon.GetReloadTime());
+            source.PlayOneShot(weapon.GetReloadSound());
             Debug.Log($"started reloading {Time.time}");
         }
 
@@ -40,6 +42,7 @@ namespace DesignPatterns
         public override void ExitState()
         {
             base.ExitState();
+            
             OnReload?.Invoke();
             Debug.Log($"done reloading {Time.time}");
         }

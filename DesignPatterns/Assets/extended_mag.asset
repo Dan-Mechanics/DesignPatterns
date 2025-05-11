@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: extended_mag
   m_EditorClassIdentifier: 
   bulletGained: 10
+  newReloadSound: {fileID: 8300000, guid: fd2fb84fc903a7942a2dac9ef1c899c8, type: 3}

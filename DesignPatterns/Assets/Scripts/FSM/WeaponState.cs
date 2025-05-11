@@ -13,12 +13,14 @@ namespace DesignPatterns
         protected FSM<WeaponState> fsm;
         protected InputHandler inputHandler;
         protected IWeapon weapon;
+        protected AudioSource source;
 
-        protected WeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon)
+        protected WeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source)
         {
             this.fsm = fsm;
             this.inputHandler = inputHandler;
             this.weapon = weapon;
+            this.source = source;
         }
 
         public virtual void EnterState() { }
