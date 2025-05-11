@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ed88d3ebad106a49b93e2f82d6f60b4, type: 3}
-  m_Name: pistol_base
+  m_Name: ak-47
   m_EditorClassIdentifier: 
-  reloadTime: 1
-  maxBullets: 10
+  reloadTime: 2.5
+  maxBullets: 30
   damage: 10
-  shootInterval: 0.5
+  shootInterval: 0.1

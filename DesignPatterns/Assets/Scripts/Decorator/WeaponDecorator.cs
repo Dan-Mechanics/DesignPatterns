@@ -20,5 +20,6 @@ namespace DesignPatterns
         public virtual string GetName() => weapon.GetName();
         public virtual float GetReloadTime() => weapon.GetReloadTime();
         public virtual float GetShootInterval() => weapon.GetShootInterval();
+        public virtual float GetMaxBulletRange() => weapon.GetMaxBulletRange();
     }
 }

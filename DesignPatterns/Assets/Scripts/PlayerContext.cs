@@ -14,26 +14,26 @@ namespace DesignPatterns
     {
         [SerializeField] private List<InputHandler.Binding> bindings = default;
         [SerializeField] private BaseWeapon baseWeapon = default;
+        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;
+        [SerializeField] private Transform eyes = default;
 
         private InputHandler inputHandler;
         private readonly FSM<WeaponState> fsm = new FSM<WeaponState>();
 
         private void Start()
         {
-            IWeapon weapon = baseWeapon;
+            IWeapon weapon = AssembleWeapon();
             // decorate here.
 
             inputHandler = new InputHandler(bindings);
 
             ReloadingWeaponState reloading = new ReloadingWeaponState(fsm, inputHandler, weapon);
-            ReadyWeaponState ready = new ReadyWeaponState(fsm, inputHandler, weapon, reloading);
+            ReadyWeaponState ready = new ReadyWeaponState(fsm, inputHandler, weapon, reloading, eyes);
 
             fsm.AddState(reloading);
             fsm.AddState(ready);
 
             fsm.TransitionTo(ready);
-
-            inputHandler.GetInputPair(PlayerAction.Reload).OnDown += Log;
         }
 
         private void Update()
@@ -42,9 +42,21 @@ namespace DesignPatterns
             fsm.Update();
         }
 
-        private void Log() 
+        private void Log()
         {
             print("bro is de logger!!");
+        }
+
+        private IWeapon AssembleWeapon() 
+        {
+            IWeapon weapon = baseWeapon;
+
+            for (int i = 0; i < weaponDecorators.Count; i++)
+            {
+                weapon = weaponDecorators[i].Decorate(weapon);
+            }
+
+            return weapon;
         }
     }
 }

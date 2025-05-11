@@ -12,7 +12,7 @@ namespace DesignPatterns
         /// Ideally we load this is via config file.
         /// </summary>
         private readonly List<Binding> bindings;
-        private readonly Dictionary<PlayerAction, InputPair> conversion;
+        private readonly Dictionary<PlayerAction, InputEvents> conversion;
 
         /// <summary>
         /// Bindings is from editor.
@@ -22,12 +22,12 @@ namespace DesignPatterns
         public InputHandler(List<Binding> bindings = null)
         {
             this.bindings = bindings ?? new List<Binding>();
-            conversion = new Dictionary<PlayerAction, InputPair>();
+            conversion = new Dictionary<PlayerAction, InputEvents>();
 
             // Or we could generate them as they are needed, but this is a little smoother.
             for (int i = 0; i < Enum.GetValues(typeof(PlayerAction)).Length; i++)
             {
-                conversion.Add((PlayerAction)i, new InputPair());
+                conversion.Add((PlayerAction)i, new InputEvents());
             }
         }
 
@@ -83,23 +83,27 @@ namespace DesignPatterns
                 if (Input.GetKeyDown(binding.key))
                 {
                     conversion[binding.playerAction].OnDown?.Invoke();
+                    conversion[binding.playerAction].OnChange?.Invoke(true);
                 }
 
                 if (Input.GetKeyUp(binding.key)) 
                 {
                     conversion[binding.playerAction].OnUp?.Invoke();
+                    conversion[binding.playerAction].OnChange?.Invoke(false);
                 }
             }
         }
 
-        public InputPair GetInputPair(PlayerAction playerAction)
+        public InputEvents GetInputEvents(PlayerAction playerAction) => conversion[playerAction];
+
+        /*public InputEvents GetInputEvents(PlayerAction playerAction)
         {
             // This if statement COULD be removed !!
             if (!conversion.ContainsKey(playerAction))
                 return null;
 
             return conversion[playerAction];
-        }
+        }*/
 
         [Serializable]
         public class Binding
@@ -118,10 +122,11 @@ namespace DesignPatterns
         /// Can this be a struct?
         /// </summary>
         [System.Serializable]
-        public class InputPair 
+        public class InputEvents 
         {
             public Action OnDown;
             public Action OnUp;
+            public Action<bool> OnChange;
         }
     }
 

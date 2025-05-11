@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using UnityEngine;
 
-namespace DesignPatterns 
+namespace DesignPatterns
 {
     public class FSM<T> where T : IState
     {
@@ -14,13 +13,14 @@ namespace DesignPatterns
 
         public void AddState(T state)
         {
-            //state.Setup(this);
             Debug.Log($"added {state.GetType()}");
             states.Add(state.GetType(), state);
         }
 
         public void RemoveState(Type type)
         {
+            Debug.Log($"removed {type}");
+
             if (current.GetType() == type)
                 current = default;
 
