@@ -6,13 +6,13 @@ namespace DesignPatterns
 {
     public class InputHandler
     {
-        public Dictionary<PlayerAction, InputPair> Conversions => conversions;
+        //public Dictionary<PlayerAction, InputPair> Conversions => conversions;
 
         /// <summary>
         /// Ideally we load this is via config file.
         /// </summary>
         private readonly List<Binding> bindings;
-        private readonly Dictionary<PlayerAction, InputPair> conversions;
+        private readonly Dictionary<PlayerAction, InputPair> conversion;
 
         /// <summary>
         /// Bindings is from editor.
@@ -22,12 +22,12 @@ namespace DesignPatterns
         public InputHandler(List<Binding> bindings = null)
         {
             this.bindings = bindings ?? new List<Binding>();
-            conversions = new Dictionary<PlayerAction, InputPair>();
+            conversion = new Dictionary<PlayerAction, InputPair>();
 
             // Or we could generate them as they are needed, but this is a little smoother.
             for (int i = 0; i < Enum.GetValues(typeof(PlayerAction)).Length; i++)
             {
-                conversions.Add((PlayerAction)i, new InputPair());
+                conversion.Add((PlayerAction)i, new InputPair());
             }
         }
 
@@ -77,28 +77,28 @@ namespace DesignPatterns
         {
             foreach (var binding in bindings)
             {
-                if (!conversions.ContainsKey(binding.playerAction))
+                if (!conversion.ContainsKey(binding.playerAction))
                     continue;
 
                 if (Input.GetKeyDown(binding.key))
                 {
-                    conversions[binding.playerAction].OnDown?.Invoke();
+                    conversion[binding.playerAction].OnDown?.Invoke();
                 }
 
                 if (Input.GetKeyUp(binding.key)) 
                 {
-                    conversions[binding.playerAction].OnUp?.Invoke();
+                    conversion[binding.playerAction].OnUp?.Invoke();
                 }
             }
         }
 
-        /*public InputPair GetInputPair(PlayerAction playerAction) 
+        public InputPair GetInputPair(PlayerAction playerAction)
         {
-            if (!conversions.ContainsKey(playerAction))
+            if (!conversion.ContainsKey(playerAction))
                 return null;
 
-            return conversions[playerAction];
-        }*/
+            return conversion[playerAction];
+        }
 
         [Serializable]
         public class Binding

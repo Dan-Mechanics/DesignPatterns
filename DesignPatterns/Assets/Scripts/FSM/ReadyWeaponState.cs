@@ -10,16 +10,20 @@ namespace DesignPatterns
     /// </summary>
     public class ReadyWeaponState : WeaponState
     {
-        private readonly AudioSource source;
+        private IWeapon weapon;
+        
         private bool isButtonPressed;
         private float nextShootTime;
+        private int bulletsLeft;
+        private FixedTicks fixedTicks;
 
-        private int bulletsLeft = 20;
-
-        public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, AudioSource source, ReloadingWeaponState reloading) : base(fsm, inputHandler)
+        public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, ReloadingWeaponState reloading, IWeapon weapon) : base(fsm, inputHandler)
         {
-            this.source = source;
             reloading.OnReload += Reload;
+            this.weapon = weapon;
+            this.fixedTicks = new FixedTicks(weapon.GetShootInterval());
+
+            Reload();
         }
 
         public override void EnterState()
@@ -28,18 +32,24 @@ namespace DesignPatterns
 
             isButtonPressed = false;
             nextShootTime = Time.time;
-            inputHandler.Conversions[PlayerAction.PrimaryFire].OnDown += TriggerDown;
-            inputHandler.Conversions[PlayerAction.PrimaryFire].OnUp += TriggerUp;
-            inputHandler.Conversions[PlayerAction.Reload].OnDown += TryReload;
+
+            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnDown += TriggerDown;
+            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp += TriggerUp;
+            inputHandler.GetInputPair(PlayerAction.Reload).OnDown += TryReload;
         }
 
         public override void Update()
         {
             base.Update();
 
-            if (isButtonPressed && Time.time >= nextShootTime && bulletsLeft > 0)
-                ShootBullet();
-
+            // This means that if our framerate is lesser than our shoot interval,
+            // the player still does the same amount of dmg.
+            for (int i = 0; i < fixedTicks.GetTicksCount(Time.deltaTime); i++)
+            {
+                if (isButtonPressed && Time.time >= nextShootTime && bulletsLeft > 0)
+                    ShootBullet();
+            }
+            
         }
 
         public override void ExitState()
@@ -48,9 +58,9 @@ namespace DesignPatterns
 
             isButtonPressed = false;
 
-            inputHandler.Conversions[PlayerAction.PrimaryFire].OnDown -= TriggerDown;
-            inputHandler.Conversions[PlayerAction.PrimaryFire].OnUp -= TriggerUp;
-            inputHandler.Conversions[PlayerAction.Reload].OnDown -= TryReload;
+            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnDown -= TriggerDown;
+            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp -= TriggerUp;
+            inputHandler.GetInputPair(PlayerAction.Reload).OnDown -= TryReload;
         }
 
         /// <summary>
@@ -65,42 +75,22 @@ namespace DesignPatterns
         /// </summary>
         private void TriggerUp() { isButtonPressed = false; }
 
-        private void TryReload() 
+        private void TryReload()
         {
-            if (bulletsLeft < 20) 
-            {
-                fsm.TransitionTo(typeof(ReloadingWeaponState));
-            }
-        }
-
-        // Something like this:
-        /*public void UpdateShooting(bool onDown) 
-        {
-            if (!onDown)
+            if (bulletsLeft >= weapon.GetMaxBullets())
                 return;
 
-            // Shoot !!
-        }*/
-
-        public void Reload() 
-        {
-            bulletsLeft = 20;
+            fsm.TransitionTo(typeof(ReloadingWeaponState));
         }
+
+        public void Reload() => bulletsLeft = weapon.GetMaxBullets();
 
         public void ShootBullet() 
         {
-            // this should come from decorated Iweapon, given via refernce.
-            float interval = 0.1f;
             bulletsLeft--;
-            nextShootTime = Time.time + interval;
+            nextShootTime = Time.time + weapon.GetShootInterval();
             
-            // example
-            source.Play();
-
-            float dmg = 10f;
-            Debug.Log($"Shoot !! with {dmg} damage");
-
-
+            Debug.Log($"Shoot !! with {weapon.GetDamage()} damage, interval = {weapon.GetShootInterval()}");
         }
     }
 }

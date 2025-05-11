@@ -21,7 +21,9 @@ namespace DesignPatterns
             inputHandler = new InputHandler(bindings);
 
             //fsm.AddState(new Wea)
+            inputHandler.Conversions.Clear();
 
+            print(inputHandler.Conversions.Count);
 
             //fsm.states[0].Setup
             // example code.
