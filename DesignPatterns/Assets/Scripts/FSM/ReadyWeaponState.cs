@@ -14,7 +14,7 @@ namespace DesignPatterns
         private float nextShootTime;
         private int bulletsLeft;
 
-        public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, ReloadingWeaponState reloading, IWeapon weapon) : base(fsm, inputHandler, weapon)
+        public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, ReloadingWeaponState reloading) : base(fsm, inputHandler, weapon)
         {
             reloading.OnReload += Reload;
             //this.weapon = weapon;

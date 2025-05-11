@@ -19,6 +19,17 @@ namespace DesignPatterns
             states.Add(state.GetType(), state);
         }
 
+        public void RemoveState(Type type)
+        {
+            if (current.GetType() == type)
+                current = default;
+
+            if (!states.ContainsKey(type))
+                return;
+
+            states.Remove(type);
+        }
+
         public void TransitionTo(Type type)
         {
             if (!states.ContainsKey(type))

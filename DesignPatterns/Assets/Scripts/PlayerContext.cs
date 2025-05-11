@@ -16,18 +16,20 @@ namespace DesignPatterns
 
         [SerializeField] private List<InputHandler.Binding> bindings = default;
 
+        [SerializeField] private BaseWeapon baseWeapon = default;
+
         private void Start()
         {
+            IWeapon weapon = baseWeapon;
+            
+            
             inputHandler = new InputHandler(bindings);
 
-            //fsm.AddState(new Wea)
-            inputHandler.Conversions.Clear();
+            ReloadingWeaponState reloading = new ReloadingWeaponState(fsm, inputHandler, weapon);
+            ReadyWeaponState ready = new ReadyWeaponState(fsm, inputHandler, weapon, reloading);
 
-            print(inputHandler.Conversions.Count);
-
-            //fsm.states[0].Setup
-            // example code.
-            //inputHandler.AddBinding(new InputHandler.Binding(KeyCode.Mouse0, PlayerAction.PrimaryFire));
+            fsm.AddState(new ReadyWeaponState(fsm, inputHandler, weapon))
+            
         }
 
         private void Update()
