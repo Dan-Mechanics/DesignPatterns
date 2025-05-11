@@ -36,7 +36,7 @@ namespace DesignPatterns
         public override void Update()
         {
             base.Update();
-            Debug.Log($"{isButtonPressed} && {Time.time >= nextShootTime} && {bulletsLeft > 0}");
+            //Debug.Log($"{isButtonPressed} && {Time.time >= nextShootTime} && {bulletsLeft > 0}");
             if (isButtonPressed && Time.time >= nextShootTime && bulletsLeft > 0)
                 ShootBullet();
         }
