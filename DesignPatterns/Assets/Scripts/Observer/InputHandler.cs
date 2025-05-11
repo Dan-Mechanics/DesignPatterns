@@ -6,7 +6,7 @@ namespace DesignPatterns
 {
     public class InputHandler
     {
-        //public Dictionary<PlayerAction, InputPair> Conversions => conversions;
+        public Dictionary<PlayerAction, InputPair> Conversions => conversions;
 
         /// <summary>
         /// Ideally we load this is via config file.
@@ -92,13 +92,13 @@ namespace DesignPatterns
             }
         }
 
-        public InputPair GetInputPair(PlayerAction playerAction) 
+        /*public InputPair GetInputPair(PlayerAction playerAction) 
         {
             if (!conversions.ContainsKey(playerAction))
                 return null;
 
             return conversions[playerAction];
-        }
+        }*/
 
         [Serializable]
         public class Binding

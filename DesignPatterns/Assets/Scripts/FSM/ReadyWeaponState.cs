@@ -28,9 +28,9 @@ namespace DesignPatterns
 
             isButtonPressed = false;
             nextShootTime = Time.time;
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnDown += TriggerDown;
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp += TriggerUp;
-            inputHandler.GetInputPair(PlayerAction.Reload).OnDown += TryReload;
+            inputHandler.Conversions[PlayerAction.PrimaryFire].OnDown += TriggerDown;
+            inputHandler.Conversions[PlayerAction.PrimaryFire].OnUp += TriggerUp;
+            inputHandler.Conversions[PlayerAction.Reload].OnDown += TryReload;
         }
 
         public override void Update()
@@ -48,9 +48,9 @@ namespace DesignPatterns
 
             isButtonPressed = false;
 
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnDown -= TriggerDown;
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp -= TriggerUp;
-            inputHandler.GetInputPair(PlayerAction.Reload).OnDown -= TryReload;
+            inputHandler.Conversions[PlayerAction.PrimaryFire].OnDown -= TriggerDown;
+            inputHandler.Conversions[PlayerAction.PrimaryFire].OnUp -= TriggerUp;
+            inputHandler.Conversions[PlayerAction.Reload].OnDown -= TryReload;
         }
 
         /// <summary>
