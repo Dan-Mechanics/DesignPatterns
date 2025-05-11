@@ -23,6 +23,7 @@ namespace DesignPatterns
         {
             base.EnterState();
             timer.SetValue(weapon.GetReloadTime());
+            Debug.Log($"started reloading {Time.time}");
         }
 
         public override void Update()
@@ -40,6 +41,7 @@ namespace DesignPatterns
         {
             base.ExitState();
             OnReload?.Invoke();
+            Debug.Log($"done reloading {Time.time}");
         }
     }
 }

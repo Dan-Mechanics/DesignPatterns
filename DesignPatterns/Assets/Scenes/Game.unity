@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 1214065570}
   - component: {fileID: 1214065569}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: player_context
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,6 +332,7 @@ MonoBehaviour:
     playerAction: 1
   - key: 114
     playerAction: 3
+  baseWeapon: {fileID: 11400000, guid: 1b2761aeaec763c4c9d93902dcfdb5ce, type: 2}
 --- !u!4 &1214065570
 Transform:
   m_ObjectHideFlags: 0

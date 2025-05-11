@@ -94,6 +94,7 @@ namespace DesignPatterns
 
         public InputPair GetInputPair(PlayerAction playerAction)
         {
+            // This if statement COULD be removed !!
             if (!conversion.ContainsKey(playerAction))
                 return null;
 

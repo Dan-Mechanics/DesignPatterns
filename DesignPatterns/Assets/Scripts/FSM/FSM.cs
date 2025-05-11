@@ -15,7 +15,7 @@ namespace DesignPatterns
         public void AddState(T state)
         {
             //state.Setup(this);
-            Debug.Log(state.GetType());
+            Debug.Log($"added {state.GetType()}");
             states.Add(state.GetType(), state);
         }
 
@@ -38,6 +38,16 @@ namespace DesignPatterns
             current?.ExitState();
             current = states[type];
             current.EnterState();
+
+            Debug.Log($"state is now {current.GetType()}");
+        }
+
+        public void TransitionTo(object obj)
+        {
+            if (obj == null)
+                return;
+            
+            TransitionTo(obj.GetType());
         }
     }
 }
