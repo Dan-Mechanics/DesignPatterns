@@ -330,6 +330,8 @@ MonoBehaviour:
   bindings:
   - key: 323
     playerAction: 1
+  - key: 114
+    playerAction: 3
 --- !u!4 &1214065570
 Transform:
   m_ObjectHideFlags: 0

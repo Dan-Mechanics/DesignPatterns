@@ -11,44 +11,35 @@ namespace DesignPatterns
     public class ReloadingWeaponState : WeaponState
     {
         public event Action OnReload;
-        
-        private readonly AudioSource source;
-        private readonly Timer timer = new Timer();
+        private readonly Timer timer;
 
-        public ReloadingWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, AudioSource source) : base(fsm, inputHandler)
+        public ReloadingWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon) : base(fsm, inputHandler, weapon)
         {
-            this.source = source;
+            //this.source = source;
+            timer = new Timer();
         }
 
-        /*public override void EnterState()
+        public override void EnterState()
         {
             base.EnterState();
-
-            isButtonPressed = false;
-            nextShootTime = Time.time;
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnDown += TriggerDown;
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp += TriggerUp;
-            inputHandler.GetInputPair(PlayerAction.Reload).OnDown += TryReload;
+            timer.SetValue(weapon.GetReloadTime());
         }
 
         public override void Update()
         {
             base.Update();
 
-            if (isButtonPressed && Time.time >= nextShootTime && bulletsLeft > 0)
-                ShootBullet();
+            if (timer.Tick(Time.deltaTime))
+            {
+                fsm.TransitionTo(typeof(ReadyWeaponState));
+            }
 
         }
 
         public override void ExitState()
         {
             base.ExitState();
-
-            isButtonPressed = false;
-
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnDown -= TriggerDown;
-            inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp -= TriggerUp;
-            inputHandler.GetInputPair(PlayerAction.Reload).OnDown -= TryReload;
-        }*/
+            OnReload?.Invoke();
+        }
     }
 }
