@@ -12,12 +12,18 @@ namespace DesignPatterns
     /// </summary>
     public class PlayerContext : MonoBehaviour
     {
+        [Header("Bindings")]
+        [Tooltip("This should come from config file.")]
         [SerializeField] private List<InputHandler.Binding> bindings = default;
-        [SerializeField] private BaseWeapon baseWeapon = default;
-        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;
 
+        [Header("Weapon")]
+        [SerializeField] private BaseWeapon baseWeapon = default;
         [SerializeField] private WeaponDecorator removableDecorator = default;
 
+        [Tooltip("The player assembles this before the game starts.")]
+        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;
+
+        [Header("References")]
         [SerializeField] private GameObject bulletImpactEffect = default;
         [SerializeField] private Transform eyes = default;
         [SerializeField] private AudioSource source = default;

@@ -1,13 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace DesignPatterns
 {
-    /// <summary>
-    /// Make sure to look at lsikov subsitution princple for this shit.
-    /// </summary>
     public class ReloadingWeaponState : WeaponState
     {
         public event Action OnReload;

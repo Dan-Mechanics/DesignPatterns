@@ -3,9 +3,6 @@ using UnityEngine;
 
 namespace DesignPatterns
 {
-    /// <summary>
-    /// Make sure to look at lsikov subsitution princple for this stuff.
-    /// </summary>
     public class ToggleDecoratorWeaponState : WeaponState
     {
         public event Action<IWeapon> OnNewWeapon;

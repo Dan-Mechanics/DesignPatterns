@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
 
 namespace DesignPatterns
 {
     /// <summary>
     /// Make sure to look at lsikov subsitution princple for this shit.
+    /// 
+    /// You could add weapon swapping in the futuer as a way to animation cancel ??
+    /// 
+    /// Or the states spawn in objects in the setup.
     /// </summary>
     public abstract class WeaponState : IState
     {

@@ -40,7 +40,7 @@ namespace DesignPatterns
             current = states[type];
             current.EnterState();
 
-            Debug.Log($"state is now {current.GetType()}");
+            Debug.Log($"state is now <b>{current.GetType()}</b>");
         }
 
         public void TransitionTo(object obj)
