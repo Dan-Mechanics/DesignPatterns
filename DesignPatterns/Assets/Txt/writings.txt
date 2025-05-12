@@ -7,6 +7,14 @@ and add sumaries
 and maybe add some itnerfaces for SOLId reasons.
 and look at the liskof meme
 
+possibly consider making the pool more generic with T but that 
+is a pain in the ass for gameobjects tbh.
+maybe add some more sounds for testing reasons. you could also just add more stuff in general etc etc.
+
+is deze code overdraagbaar et etc ?? 
+what about weapon swapping?
+more interfaces ??
+
 i want to have a branch called source wherein i only want to show the things
 in the scirpt folder and NO META FILES !!
 

@@ -33,8 +33,6 @@ namespace DesignPatterns
 
         public void DumpAll() 
         {
-            Debug.Log(nameof(DumpAll));
-
             active.ForEach(x => Object.Destroy(x));
             active.Clear();
 
@@ -55,10 +53,9 @@ namespace DesignPatterns
 
         private GameObject SpawnNewGameOjbect()
         {
-            Debug.Log(nameof(SpawnNewGameOjbect));
-
             GameObject go = Object.Instantiate(prefab);
             go.GetComponent<PoolableGameObject>().Setup(this);
+            go.name = prefab.name;
 
             return go;
         }

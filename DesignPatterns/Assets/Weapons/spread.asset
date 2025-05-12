@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032c9f37214e0734a9f72419dca433aa, type: 3}
   m_Name: spread
   m_EditorClassIdentifier: 
-  spread: 0.52
+  spread: 0.2
