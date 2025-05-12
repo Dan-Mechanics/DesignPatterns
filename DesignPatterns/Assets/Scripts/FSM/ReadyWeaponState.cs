@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-//using System;
 
 namespace DesignPatterns
 {
@@ -10,7 +7,7 @@ namespace DesignPatterns
     /// 
     /// We could have it so that we can keep holding down the input and it keeps firing.
     /// 
-    /// I could make a builder for this.
+    /// I could make a builder for this ?
     /// </summary>
     public class ReadyWeaponState : WeaponState
     {

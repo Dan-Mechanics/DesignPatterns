@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace DesignPatterns
 {
     /// <summary>
-    /// Make sure to look at lsikov subsitution princple for this shit.
+    /// Make sure to look at lsikov subsitution princple for this stuff.
     /// </summary>
     public class ToggleDecoratorWeaponState : WeaponState
     {
@@ -46,8 +44,6 @@ namespace DesignPatterns
             base.ExitState();
 
             source.PlayOneShot(weapon.GetReloadSound());
-          //  weapon = hasDecorated ? decorator.Decorate(null) : decorator.Decorate(weapon);
-           // hasDecorated = !hasDecorated;
 
             if (!hasDecorated)
             {
