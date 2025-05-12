@@ -15,18 +15,16 @@ namespace DesignPatterns
         private float nextShootTime;
         private int bulletsLeft;
         private Transform eyes;
-
-        // object pool here.
-        private GameObject prefab;
+        private GameObjectPool pool;
 
         public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
 
-        public ReadyWeaponState Setup(ReloadingWeaponState reloading, Transform eyes, GameObject prefab) 
+        public ReadyWeaponState Setup(ReloadingWeaponState reloading, Transform eyes, GameObjectPool pool) 
         {
+            this.eyes = eyes;
+            this.pool = pool;
             reloading.OnReload += Reload;
             Reload();
-            this.eyes = eyes;
-            this.prefab = prefab;
 
             return this;
         }
@@ -100,9 +98,7 @@ namespace DesignPatterns
 
             if (Physics.Raycast(eyes.position, dir, out RaycastHit hit, weapon.GetMaxBulletRange()))
             {
-                // USE OBJECT POOL HERE !!
-                GameObject effect = Object.Instantiate(prefab);
-
+                GameObject effect = pool.GetFromPool();
                 effect.transform.position = hit.point;
                 effect.transform.forward = hit.normal;
             }

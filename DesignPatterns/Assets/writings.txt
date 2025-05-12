@@ -1,3 +1,18 @@
+vergeet niet dat je ook nog uml moet maken
+en die shit sharen met die guys.
+
+dont forget to refactor for this. stuff
+and remove summaries
+and add sumaries
+and maybe add some itnerfaces for SOLId reasons.
+and look at the liskof meme
+
+i want to have a branch called source wherein i only want to show the things
+in the scirpt folder and NO META FILES !!
+
+given that in unity there is almost never object pooling for non gameobjects
+because everything be a gameobject, ya know ?
+
 Motivate your choice of design patterns in relation to the gameplay system's design challenges.
 this means like: shooting system has a lot of varing guns and extentions
 and the gun also has some states which interact in interesting ways.

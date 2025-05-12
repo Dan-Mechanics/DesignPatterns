@@ -28,13 +28,15 @@ namespace DesignPatterns
         [SerializeField] private Transform eyes = default;
         [SerializeField] private AudioSource source = default;
 
-        private InputHandler inputHandler;
         private readonly FSM<WeaponState> fsm = new FSM<WeaponState>();
+        private InputHandler inputHandler;
+        private GameObjectPool pool;
 
         private void Start()
         {
             IWeapon weapon = AssembleWeapon();
             inputHandler = new InputHandler(bindings);
+            pool = new GameObjectPool(bulletImpactEffect);
             SetupStates(weapon);
         }
 
@@ -48,7 +50,7 @@ namespace DesignPatterns
         {
             var reloading = new ReloadingWeaponState(fsm, inputHandler, weapon, source).Setup();
             var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(removableDecorator);
-            var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(reloading, eyes, bulletImpactEffect);
+            var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(reloading, eyes, pool);
 
             fsm.AddState(reloading);
             fsm.AddState(toggle);
