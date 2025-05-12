@@ -16,11 +16,11 @@ namespace DesignPatterns
         [SerializeField] private BaseWeapon baseWeapon = default;
         [SerializeField] private List<WeaponDecorator> weaponDecorators = default;
 
+        [SerializeField] private WeaponDecorator removableDecorator = default;
+
         [SerializeField] private GameObject bulletImpactEffect = default;
         [SerializeField] private Transform eyes = default;
         [SerializeField] private AudioSource source = default;
-
-       // public LayerMask mask;
 
         private InputHandler inputHandler;
         private readonly FSM<WeaponState> fsm = new FSM<WeaponState>();
@@ -28,17 +28,8 @@ namespace DesignPatterns
         private void Start()
         {
             IWeapon weapon = AssembleWeapon();
-            // decorate here.
-
             inputHandler = new InputHandler(bindings);
-            //mask = (1 << 0);
-            ReloadingWeaponState reloading = new ReloadingWeaponState(fsm, inputHandler, weapon, source);
-            ReadyWeaponState ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(reloading, eyes, bulletImpactEffect);
-
-            fsm.AddState(reloading);
-            fsm.AddState(ready);
-
-            fsm.TransitionTo(ready);
+            SetupStates(weapon);
         }
 
         private void Update()
@@ -47,9 +38,19 @@ namespace DesignPatterns
             fsm.Update();
         }
 
-        private void Log()
+        private void SetupStates(IWeapon weapon)
         {
-            print("bro is de logger!!");
+            var reloading = new ReloadingWeaponState(fsm, inputHandler, weapon, source).Setup();
+            var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(removableDecorator);
+            var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(reloading, eyes, bulletImpactEffect);
+
+            fsm.AddState(reloading);
+            fsm.AddState(toggle);
+            fsm.AddState(ready);
+
+            fsm.GetStates().ForEach(s => toggle.OnNewWeapon += s.UpdateWeapon);
+
+            fsm.TransitionTo(ready);
         }
 
         private IWeapon AssembleWeapon() 

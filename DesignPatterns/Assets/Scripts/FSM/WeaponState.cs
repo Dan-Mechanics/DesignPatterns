@@ -19,12 +19,15 @@ namespace DesignPatterns
         {
             this.fsm = fsm;
             this.inputHandler = inputHandler;
-            this.weapon = weapon;
+            //this.weapon = weapon;
+            UpdateWeapon(weapon);
             this.source = source;
         }
 
         public virtual void EnterState() { }
         public virtual void Update() { }
         public virtual void ExitState() { }
+
+        public void UpdateWeapon(IWeapon weapon) => this.weapon = weapon;
     }
 }

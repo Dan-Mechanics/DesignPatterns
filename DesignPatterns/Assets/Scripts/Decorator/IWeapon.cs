@@ -16,6 +16,7 @@ namespace DesignPatterns
         float GetDamage();
         float GetShootInterval();
         float GetMaxBulletRange();
+        float GetSpread();
         AudioClip GetShootSound();
         AudioClip GetReloadSound();
 

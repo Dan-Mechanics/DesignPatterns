@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace DesignPatterns
 {
+    /// <summary>
+    /// Add max allowed stuff.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ObjectPool<T> where T : IPoolable
     {
         private readonly List<T> inactivePool = new List<T>();

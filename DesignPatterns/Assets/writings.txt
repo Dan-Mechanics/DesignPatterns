@@ -1,3 +1,22 @@
+Motivate your choice of design patterns in relation to the gameplay system's design challenges.
+this means like: shooting system has a lot of varing guns and extentions
+and the gun also has some states which interact in interesting ways.
+
+Seek to build the functionality only insofar as it is necessary to design the implementation. 
+
+i think the object pool is gonna be the touchest cooky here.
+in the sense that its about game objects and not erm classes ya know?
+how can i make the object pool support both plain classes AND gameobjects?
+
+furthermore, the state mahcine and inputs are quite expansive, ranging from weapon switching
+and insepcting. i basically need to have these states:
+
+ready state / idlestate
+reloading state
+switching state
+isnepcting state
+removing silencer state.
+
 11 may : 
 
 maybe add some sound

@@ -18,6 +18,7 @@ namespace DesignPatterns
         public float GetDamage() => damage;
         public float GetMaxBulletRange() => maxBulletRange;
         public int GetMaxBullets() => maxBullets;
+        public float GetSpread() => 0f;
         public string GetName() => name;
         public AudioClip GetReloadSound() => reloadSound;
         public float GetReloadTime() => reloadTime;

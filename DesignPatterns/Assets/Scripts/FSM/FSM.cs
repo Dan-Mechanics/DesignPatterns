@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DesignPatterns
@@ -49,5 +50,7 @@ namespace DesignPatterns
             
             TransitionTo(obj.GetType());
         }
+
+        public List<T> GetStates() => states.Values.ToList();
     }
 }

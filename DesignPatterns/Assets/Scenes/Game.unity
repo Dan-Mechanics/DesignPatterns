@@ -308,7 +308,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -391,7 +391,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1214065568
 GameObject:
@@ -426,12 +426,16 @@ MonoBehaviour:
   bindings:
   - key: 323
     playerAction: 1
+  - key: 324
+    playerAction: 2
   - key: 114
     playerAction: 3
   baseWeapon: {fileID: 11400000, guid: 1b2761aeaec763c4c9d93902dcfdb5ce, type: 2}
   weaponDecorators:
   - {fileID: 11400000, guid: 78fb100993519e84a9c9ff5f02b04ccc, type: 2}
-  bulletImpactEffect: {fileID: 3376362656518204675, guid: 13de6a03dbc4dec4da637dc896e8a87a, type: 3}
+  - {fileID: 11400000, guid: bc9b8284df2cf5f4bbc7df0de185c268, type: 2}
+  removableDecorator: {fileID: 11400000, guid: 51ececa596e3b1d44a7fd8ad9960f212, type: 2}
+  bulletImpactEffect: {fileID: 4335094639938529301, guid: aa7fbbc42c80673418725368497a4d0c, type: 3}
   eyes: {fileID: 963194228}
   source: {fileID: 1214065571}
 --- !u!4 &1214065570
@@ -446,7 +450,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1214065571
 AudioSource:

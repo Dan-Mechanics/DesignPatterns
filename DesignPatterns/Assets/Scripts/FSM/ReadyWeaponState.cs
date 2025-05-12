@@ -18,6 +18,8 @@ namespace DesignPatterns
         private float nextShootTime;
         private int bulletsLeft;
         private Transform eyes;
+
+        // object pool here.
         private GameObject prefab;
 
         public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
@@ -40,14 +42,14 @@ namespace DesignPatterns
             nextShootTime = Time.time;
 
             inputHandler.GetInputEvents(PlayerAction.PrimaryFire).OnChange += OnTriggerHeldChanged;
-            //inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp += TriggerUp;
             inputHandler.GetInputEvents(PlayerAction.Reload).OnDown += TryReload;
+            inputHandler.GetInputEvents(PlayerAction.SecondaryFire).OnDown += ToggleDecorator;
         }
 
         public override void Update()
         {
             base.Update();
-            //Debug.Log($"{isButtonPressed} && {Time.time >= nextShootTime} && {bulletsLeft > 0}");
+
             if (isTriggerHeld && Time.time >= nextShootTime && bulletsLeft > 0)
                 ShootBullet();
         }
@@ -59,8 +61,8 @@ namespace DesignPatterns
             isTriggerHeld = false;
 
             inputHandler.GetInputEvents(PlayerAction.PrimaryFire).OnChange -= OnTriggerHeldChanged;
-            //inputHandler.GetInputPair(PlayerAction.PrimaryFire).OnUp -= TriggerUp;
             inputHandler.GetInputEvents(PlayerAction.Reload).OnDown -= TryReload;
+            inputHandler.GetInputEvents(PlayerAction.SecondaryFire).OnDown -= ToggleDecorator;
         }
 
         /// <summary>
@@ -84,6 +86,7 @@ namespace DesignPatterns
         }
 
         private void Reload() => bulletsLeft = weapon.GetMaxBullets();
+        private void ToggleDecorator() => fsm.TransitionTo(typeof(ToggleDecoratorWeaponState));
 
         public void ShootBullet() 
         {
@@ -91,15 +94,16 @@ namespace DesignPatterns
             nextShootTime = Time.time + weapon.GetShootInterval();
             
             Debug.Log($"shooting {weapon.GetName()} with {weapon.GetDamage()} damage | ({bulletsLeft}/{weapon.GetMaxBullets()}) bullets left");
-
             source.PlayOneShot(weapon.GetShootSound());
 
-            // Example code.
-            if (Physics.Raycast(eyes.position, eyes.forward, out RaycastHit hit, weapon.GetMaxBulletRange()))
+            Vector3 dir = eyes.forward;
+            Vector2 rand = Random.insideUnitCircle;
+            dir += rand.y * weapon.GetSpread() * eyes.up;
+            dir += rand.x * weapon.GetSpread() * eyes.right;
+
+            if (Physics.Raycast(eyes.position, dir, out RaycastHit hit, weapon.GetMaxBulletRange()))
             {
-                // spawn an effect here.
-                Debug.Log("hello");
-                // !OBJECT POOL HERE
+                // USE OBJECT POOL HERE !!
                 GameObject effect = Object.Instantiate(prefab);
 
                 effect.transform.position = hit.point;
