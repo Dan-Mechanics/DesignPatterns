@@ -1,2 +1,2 @@
 # DesignPatterns
-HKU - TIM DE SMIDT
+![UML IMAGE.](https://github.com/Dan-Mechanics/DesignPatterns/blob/main/uml_image.png?raw=true)
