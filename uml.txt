@@ -46,9 +46,23 @@ interface IWeapon
 }
 
 
+class WeaponState implements IState
+{
+    # fsm: FSM<WeaponState>
+    # inputHandler: InputHandler 
+    # weapon: IWeapon
+    # source: AudioSource 
+    + void UpdateWeapon(weapon: IWeapon)
+}
+
 class BaseWeapon implements ScriptableObject, IWeapon
 {
-
+    + maxBullets: int
+    + damage: float
+    + shootInterval: float
+    + maxBulletRange: float
+    + shootSound: AudioClip
+    + reloadSound: AudioClip
 }
 
 class WeaponDecorator implements ScriptableObject, IWeapon
@@ -80,19 +94,23 @@ class ReadyWeaponState implements WeaponState
 
 class ReloadingWeaponState implements WeaponState
 {
-    
+    + onReload : event Action
 }
 
 class ToggleDecoratorWeaponState implements WeaponState
 {
-    
+    + onNewWeapon : event Action
 }
 
 PlayerContext ..> WeaponState
-PoolableGameObject -- GameObjectPool
-BaseWeapon --* PlayerContext
-WeaponDecorator --* PlayerContext
+PoolableGameObject --* GameObjectPool
+GameObjectPool ..> PoolableGameObject
+LoadoutAssembler --* PlayerContext
+ToggleDecoratorWeaponState ..> LoadoutAssembler
 FSM --* PlayerContext
+WeaponDecorator --* ToggleDecoratorWeaponState
+Timer --* ToggleDecoratorWeaponState
+Timer --* ReloadingWeaponState
 IWeapon --* WeaponDecorator
 FSM --* WeaponState
 FSM ..> IState
@@ -100,3 +118,7 @@ InputHandler --* WeaponState
 IWeapon --* WeaponState
 InputHandler --* PlayerContext
 GameObjectPool --* PlayerContext
+ReadyWeaponState ..> IDamagable
+ReadyWeaponState ..> GameObjectPool
+
+@enduml

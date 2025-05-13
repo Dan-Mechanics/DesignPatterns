@@ -16,12 +16,16 @@ namespace DesignPatterns
         [Tooltip("This should come from config file.")]
         [SerializeField] private List<InputHandler.Binding> bindings = default;
 
-        [Header("Weapon")]
+        [SerializeField] private LoadoutAssembler loadoutAssembler = default;
+        /*[Header("Weapon")]
         [SerializeField] private BaseWeapon baseWeapon = default;
         [SerializeField] private WeaponDecorator removableDecorator = default;
 
+        /// <summary>
+        /// You could send this somewhere elsel ike loadoutassembler or something.
+        /// </summary>
         [Tooltip("The player assembles this before the game starts.")]
-        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;
+        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;*/
 
         [Header("References")]
         [SerializeField] private GameObject bulletImpactEffect = default;
@@ -34,7 +38,7 @@ namespace DesignPatterns
 
         private void Start()
         {
-            IWeapon weapon = AssembleWeapon();
+            IWeapon weapon = loadoutAssembler.AssembleWeapon();
             inputHandler = new InputHandler(bindings);
             pool = new GameObjectPool(bulletImpactEffect);
             SetupStates(weapon);
@@ -46,7 +50,7 @@ namespace DesignPatterns
             fsm.Update();
         }
 
-        private IWeapon AssembleWeapon() 
+        /*private IWeapon AssembleWeapon() 
         {
             IWeapon weapon = baseWeapon;
 
@@ -56,12 +60,12 @@ namespace DesignPatterns
             }
 
             return weapon;
-        }
+        }*/
 
         private void SetupStates(IWeapon weapon)
         {
             var reloading = new ReloadingWeaponState(fsm, inputHandler, weapon, source).Setup();
-            var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(removableDecorator);
+            var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(loadoutAssembler);
             var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(eyes, pool);
 
             reloading.OnReload += ready.Reload;

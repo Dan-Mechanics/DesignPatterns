@@ -12,9 +12,9 @@ namespace DesignPatterns
 
         public ToggleDecoratorWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
 
-        public ToggleDecoratorWeaponState Setup(WeaponDecorator decorator)
+        public ToggleDecoratorWeaponState Setup(LoadoutAssembler assembler)
         {
-            this.decorator = decorator;
+            decorator = assembler.GetRemovableDecorator();
             timer = new Timer();
             return this;
         }
