@@ -18,6 +18,10 @@ namespace DesignPatterns
             states.Add(state.GetType(), state);
         }
 
+        /// <summary>
+        /// Technically speaking you shouldn't be allowed
+        /// to remove states ...
+        /// </summary>
         public void RemoveState(Type type)
         {
             Debug.Log($"removed {type}");
@@ -43,12 +47,12 @@ namespace DesignPatterns
             Debug.Log($"state is now <b>{current.GetType()}</b>");
         }
 
-        public void TransitionTo(object obj)
+        public void TransitionTo(T state)
         {
-            if (obj == null)
+            if (state == null)
                 return;
             
-            TransitionTo(obj.GetType());
+            TransitionTo(state.GetType());
         }
 
         public List<T> GetStates() => states.Values.ToList();

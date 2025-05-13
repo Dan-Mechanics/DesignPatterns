@@ -19,11 +19,11 @@ namespace DesignPatterns
 
         public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
 
-        public ReadyWeaponState Setup(ReloadingWeaponState reloading, Transform eyes, GameObjectPool pool) 
+        public ReadyWeaponState Setup(Transform eyes, GameObjectPool pool) 
         {
             this.eyes = eyes;
             this.pool = pool;
-            reloading.OnReload += Reload;
+            //reloading.OnReload += Reload;
             Reload();
 
             return this;
@@ -45,8 +45,15 @@ namespace DesignPatterns
         {
             base.Update();
 
-            if (isTriggerHeld && Time.time >= nextShootTime && bulletsLeft > 0)
-                ShootBullet();
+            if (!CanShootBullet())
+                return;
+
+            ShootBullet();
+        }
+
+        private bool CanShootBullet()
+        {
+            return isTriggerHeld && Time.time >= nextShootTime && bulletsLeft > 0;
         }
 
         public override void ExitState()
@@ -60,17 +67,7 @@ namespace DesignPatterns
             inputHandler.GetInputEvents(PlayerAction.SecondaryFire).OnDown -= ToggleDecorator;
         }
 
-        /// <summary>
-        /// Or we could include a bool in a single Action,
-        /// but this might be confusing. that might work to make this look cleanrin
-        /// </summary>
         private void OnTriggerHeldChanged(bool onDown) => isTriggerHeld = onDown;
-
-        /// <summary>
-        /// you could also utilize this to make the ratatata sound start and stop instead of spawning
-        /// 10000 things.
-        /// </summary>
-        //private void TriggerUp() { isTriggerHeld = false; }
 
         private void TryReload()
         {
@@ -80,28 +77,35 @@ namespace DesignPatterns
             fsm.TransitionTo(typeof(ReloadingWeaponState));
         }
 
-        private void Reload() => bulletsLeft = weapon.GetMaxBullets();
+        public void Reload() => bulletsLeft = weapon.GetMaxBullets();
         private void ToggleDecorator() => fsm.TransitionTo(typeof(ToggleDecoratorWeaponState));
 
-        public void ShootBullet() 
+        private void ShootBullet()
         {
             bulletsLeft--;
             nextShootTime = Time.time + weapon.GetShootInterval();
-            
+
             Debug.Log($"shooting {weapon.GetName()} with {weapon.GetDamage()} damage | ({bulletsLeft}/{weapon.GetMaxBullets()}) bullets left");
             source.PlayOneShot(weapon.GetShootSound());
 
+            if (!Physics.Raycast(eyes.position, GetShootingDirection(), out RaycastHit hit, weapon.GetMaxBulletRange()))
+                return;
+
+            hit.transform.GetComponent<IDamagable>()?.Damage(weapon.GetDamage());
+
+            GameObject effect = pool.GetFromPool();
+            effect.transform.position = hit.point;
+            effect.transform.forward = hit.normal;
+        }
+
+        private Vector3 GetShootingDirection() 
+        {
             Vector3 dir = eyes.forward;
             Vector2 rand = Random.insideUnitCircle;
             dir += rand.y * weapon.GetSpread() * eyes.up;
             dir += rand.x * weapon.GetSpread() * eyes.right;
 
-            if (Physics.Raycast(eyes.position, dir, out RaycastHit hit, weapon.GetMaxBulletRange()))
-            {
-                GameObject effect = pool.GetFromPool();
-                effect.transform.position = hit.point;
-                effect.transform.forward = hit.normal;
-            }
+            return dir;
         }
     }
 }

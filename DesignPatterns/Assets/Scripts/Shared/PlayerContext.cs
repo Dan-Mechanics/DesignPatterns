@@ -46,21 +46,6 @@ namespace DesignPatterns
             fsm.Update();
         }
 
-        private void SetupStates(IWeapon weapon)
-        {
-            var reloading = new ReloadingWeaponState(fsm, inputHandler, weapon, source).Setup();
-            var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(removableDecorator);
-            var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(reloading, eyes, pool);
-
-            fsm.AddState(reloading);
-            fsm.AddState(toggle);
-            fsm.AddState(ready);
-
-            fsm.GetStates().ForEach(s => toggle.OnNewWeapon += s.UpdateWeapon);
-
-            fsm.TransitionTo(ready);
-        }
-
         private IWeapon AssembleWeapon() 
         {
             IWeapon weapon = baseWeapon;
@@ -71,6 +56,23 @@ namespace DesignPatterns
             }
 
             return weapon;
+        }
+
+        private void SetupStates(IWeapon weapon)
+        {
+            var reloading = new ReloadingWeaponState(fsm, inputHandler, weapon, source).Setup();
+            var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(removableDecorator);
+            var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(eyes, pool);
+
+            reloading.OnReload += ready.Reload;
+
+            fsm.AddState(reloading);
+            fsm.AddState(toggle);
+            fsm.AddState(ready);
+
+            fsm.GetStates().ForEach(x => toggle.OnNewWeapon += x.UpdateWeapon);
+
+            fsm.TransitionTo(ready);
         }
     }
 }

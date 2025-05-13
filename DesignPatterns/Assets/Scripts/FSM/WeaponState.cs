@@ -20,7 +20,6 @@ namespace DesignPatterns
         {
             this.fsm = fsm;
             this.inputHandler = inputHandler;
-            //this.weapon = weapon;
             UpdateWeapon(weapon);
             this.source = source;
         }

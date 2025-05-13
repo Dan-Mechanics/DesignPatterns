@@ -1,0 +1,83 @@
+@startuml
+
+class PlayerContext
+{
+    - fsm: readonly FSM<WeaponState>
+    - IWeapon AssembleWeapon()
+    - bindings: List<InputHander.Bindings>
+    - void SetupStates(weapon: IWeapon)
+}
+
+class FSM<T>
+{
+    - states: readonly Dictionary<Type, T>
+    -current: T
+    + void AddState(state: T)
+    + void RemoveState(state: T)
+    + void TransitionTo(state: Type)
+    + void TransitionTo(state: T)
+    + void Update()
+    + List<T> GetStates()
+}
+
+interface IDamagable
+{
+    + void Damage(amount: float)
+}
+
+interface IState 
+{
+    + void EnterState()
+    + void Update()
+    + void ExitState()
+}
+
+interface IWeapon 
+{
+    + string GetName()
+    + float GetReloadTime()
+    + int GetMaxBullets()
+    + float GetDamage()
+    + float GetShootInterval()
+    + float GetMaxBulletRange()
+    + float GetSpread()
+    + AudioClip GetShootSound()
+    + AudioClip GetReloadSound()
+}
+
+
+class Timer
+{
+    + onTimerComplete: event Action
+    
+    + void SetTimer(value: float)
+}
+
+class HealthStateHandler implements IInteractable
+{
+    - fsm: readonly FSM<HealthState>
+    
+    + Setup()
+    + Update()
+    + Interact(type: Type)
+}
+
+class BaseWeapon implements ScriptableObject, IWeapon
+{
+    - fsm: readonly FSM<HealthState>
+    
+    + Setup()
+    + Update()
+    + Interact(type: Type)
+}
+
+class WeaponDecorator implements IWeapon
+{
+    - weapon: IWeapon
+    + IWeapon GetUnderlyingWeapon()
+    
+}
+
+FSM --* PlayerContext
+InputHandler --* PlayerContext
+GameObjectPool --* PlayerContext
