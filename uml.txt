@@ -46,38 +46,57 @@ interface IWeapon
 }
 
 
-class Timer
-{
-    + onTimerComplete: event Action
-    
-    + void SetTimer(value: float)
-}
-
-class HealthStateHandler implements IInteractable
-{
-    - fsm: readonly FSM<HealthState>
-    
-    + Setup()
-    + Update()
-    + Interact(type: Type)
-}
-
 class BaseWeapon implements ScriptableObject, IWeapon
 {
-    - fsm: readonly FSM<HealthState>
-    
-    + Setup()
-    + Update()
-    + Interact(type: Type)
+
 }
 
-class WeaponDecorator implements IWeapon
+class WeaponDecorator implements ScriptableObject, IWeapon
 {
     - weapon: IWeapon
     + IWeapon GetUnderlyingWeapon()
+    + WeaponDecorator(weapon: IWeapon)
+}
+
+class SilencerDecorator implements WeaponDecorator
+{
+    + newSound: AudioClip
+}
+
+class ExtendedMagDecorator implements WeaponDecorator
+{
+    + bulletsGained: int
+}
+
+class SpreadDecorator implements WeaponDecorator
+{
+    + spread: float
+}
+
+class ReadyWeaponState implements WeaponState
+{
     
 }
 
+class ReloadingWeaponState implements WeaponState
+{
+    
+}
+
+class ToggleDecoratorWeaponState implements WeaponState
+{
+    
+}
+
+PlayerContext ..> WeaponState
+PoolableGameObject -- GameObjectPool
+BaseWeapon --* PlayerContext
+WeaponDecorator --* PlayerContext
 FSM --* PlayerContext
+IWeapon --* WeaponDecorator
+FSM --* WeaponState
+FSM ..> IState
+InputHandler --* WeaponState
+IWeapon --* WeaponState
 InputHandler --* PlayerContext
 GameObjectPool --* PlayerContext
