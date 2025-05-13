@@ -16,8 +16,7 @@ namespace DesignPatterns
         [Tooltip("This should come from config file.")]
         [SerializeField] private List<InputHandler.Binding> bindings = default;
 
-        [SerializeField] private LoadoutAssembler loadoutAssembler = default;
-        /*[Header("Weapon")]
+        [Header("Weapon")]
         [SerializeField] private BaseWeapon baseWeapon = default;
         [SerializeField] private WeaponDecorator removableDecorator = default;
 
@@ -25,7 +24,7 @@ namespace DesignPatterns
         /// You could send this somewhere elsel ike loadoutassembler or something.
         /// </summary>
         [Tooltip("The player assembles this before the game starts.")]
-        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;*/
+        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;
 
         [Header("References")]
         [SerializeField] private GameObject bulletImpactEffect = default;
@@ -38,7 +37,7 @@ namespace DesignPatterns
 
         private void Start()
         {
-            IWeapon weapon = loadoutAssembler.AssembleWeapon();
+            IWeapon weapon = AssembleWeapon();
             inputHandler = new InputHandler(bindings);
             pool = new GameObjectPool(bulletImpactEffect);
             SetupStates(weapon);
@@ -50,7 +49,7 @@ namespace DesignPatterns
             fsm.Update();
         }
 
-        /*private IWeapon AssembleWeapon() 
+        private IWeapon AssembleWeapon()
         {
             IWeapon weapon = baseWeapon;
 
@@ -60,7 +59,7 @@ namespace DesignPatterns
             }
 
             return weapon;
-        }*/
+        }
 
         private void SetupStates(IWeapon weapon)
         {

@@ -7,14 +7,14 @@ namespace DesignPatterns
     {
         public event Action<IWeapon> OnNewWeapon;
         private Timer timer;
-        private WeaponDecorator decorator;
+        private WeaponDecorator removableDecorator;
         private bool hasDecorated;
 
         public ToggleDecoratorWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
 
-        public ToggleDecoratorWeaponState Setup(LoadoutAssembler assembler)
+        public ToggleDecoratorWeaponState Setup(WeaponDecorator removableDecorator)
         {
-            decorator = assembler.GetRemovableDecorator();
+            this.removableDecorator = removableDecorator;
             timer = new Timer();
             return this;
         }
@@ -44,11 +44,11 @@ namespace DesignPatterns
 
             if (!hasDecorated)
             {
-                weapon = decorator.Decorate(weapon);
+                weapon = removableDecorator.Decorate(weapon);
             }
             else 
             {
-                weapon = decorator.GetUnderlyingWeapon();
+                weapon = removableDecorator.GetUnderlyingWeapon();
             }
 
             hasDecorated = !hasDecorated;

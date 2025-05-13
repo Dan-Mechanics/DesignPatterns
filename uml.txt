@@ -1,12 +1,5 @@
 @startuml
 
-class PlayerContext
-{
-    - fsm: readonly FSM<WeaponState>
-    - IWeapon AssembleWeapon()
-    - bindings: List<InputHander.Bindings>
-    - void SetupStates(weapon: IWeapon)
-}
 
 class FSM<T>
 {
@@ -89,7 +82,11 @@ class SpreadDecorator implements WeaponDecorator
 
 class ReadyWeaponState implements WeaponState
 {
-    
+    - isTriggerHeld: bool 
+    - nextShootTime: float 
+    - bulletsLeft: int 
+    - eyes: Transform 
+    - pool: GameObjectPool
 }
 
 class ReloadingWeaponState implements WeaponState
@@ -102,12 +99,22 @@ class ToggleDecoratorWeaponState implements WeaponState
     + onNewWeapon : event Action
 }
 
-PlayerContext ..> WeaponState
+class InputHandler
+{
+    + void Update()
+    + InputEvents GetInputEvents(playerAction: PlayerAction)
+    + AddBinding(binding: Binding)
+    + RemoveBinding(binding: Binding)
+}
+
+class Timer
+{
+    + bool Tick()
+    + void SetValue(value: float)
+}
+
 PoolableGameObject --* GameObjectPool
 GameObjectPool ..> PoolableGameObject
-LoadoutAssembler --* PlayerContext
-ToggleDecoratorWeaponState ..> LoadoutAssembler
-FSM --* PlayerContext
 WeaponDecorator --* ToggleDecoratorWeaponState
 Timer --* ToggleDecoratorWeaponState
 Timer --* ReloadingWeaponState
@@ -116,9 +123,7 @@ FSM --* WeaponState
 FSM ..> IState
 InputHandler --* WeaponState
 IWeapon --* WeaponState
-InputHandler --* PlayerContext
-GameObjectPool --* PlayerContext
 ReadyWeaponState ..> IDamagable
-ReadyWeaponState ..> GameObjectPool
+GameObjectPool ..* ReadyWeaponState
 
 @enduml
