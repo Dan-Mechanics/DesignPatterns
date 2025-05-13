@@ -37,10 +37,24 @@ namespace DesignPatterns
 
         private void Start()
         {
+            if (baseWeapon == null || removableDecorator == null)
+            {
+                Debug.LogError(" if (baseWeapon == null || removableDecorator == null)");
+                return;
+            }
+
             IWeapon weapon = AssembleWeapon();
-            inputHandler = new InputHandler(bindings);
+            inputHandler = GetInputHandler();
             pool = new GameObjectPool(bulletImpactEffect);
             SetupStates(weapon);
+        }
+
+        private InputHandler GetInputHandler()
+        {
+            var inputHandler = new InputHandler();
+            bindings.ForEach(x => inputHandler.AddBinding(x));
+
+            return inputHandler;
         }
 
         private void Update()

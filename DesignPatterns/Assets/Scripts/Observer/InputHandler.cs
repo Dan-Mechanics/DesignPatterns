@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace DesignPatterns
 {
     public class InputHandler
     {
-        //public Dictionary<PlayerAction, InputPair> Conversions => conversions;
-
         /// <summary>
-        /// Ideally we load this is via config file.
+        /// Ideally we load this in via config file.
         /// </summary>
         private readonly List<Binding> bindings;
         private readonly Dictionary<PlayerAction, InputEvents> conversion;
 
-        /// <summary>
-        /// Bindings is from editor.
-        /// But theorietically it could be from config txt file.
-        /// </summary>
-        /// <param name="bindings"></param>
         public InputHandler(List<Binding> bindings = null)
         {
             this.bindings = bindings ?? new List<Binding>();
@@ -44,12 +38,12 @@ namespace DesignPatterns
             // Or we have it that one key does one thing and an action can only have
             // one thing associated with it, but what's the fun in that ?
 
-            for (int i = 0; i < bindings.Count; i++)
+            if (bindings.Find(x => x.playerAction == binding.playerAction) != null)
             {
-                if (binding.playerAction == bindings[i].playerAction)
-                    return;
+                Debug.LogWarning("if (bindings.Find(x => x.playerAction == binding.playerAction) != null)");
+                return;
             }
-            
+
             bindings.Add(binding);
         }
 
@@ -96,15 +90,6 @@ namespace DesignPatterns
 
         public InputEvents GetInputEvents(PlayerAction playerAction) => conversion[playerAction];
 
-        /*public InputEvents GetInputEvents(PlayerAction playerAction)
-        {
-            // This if statement COULD be removed !!
-            if (!conversion.ContainsKey(playerAction))
-                return null;
-
-            return conversion[playerAction];
-        }*/
-
         [Serializable]
         public class Binding
         {
@@ -118,10 +103,6 @@ namespace DesignPatterns
             }
         }
 
-        /// <summary>
-        /// Can this be a struct?
-        /// </summary>
-        [System.Serializable]
         public class InputEvents 
         {
             public Action OnDown;
