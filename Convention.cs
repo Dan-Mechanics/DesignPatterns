@@ -25,6 +25,21 @@ namespace ProjectNameHere
         private static float someStaticFloat;
 
         /// <summary>
+        /// This looks strange to me.
+        /// </summary>
+        private float uIWidth; // UILength ? NO !!
+
+        /// <summary>
+        /// Dont try to fix it like this please.
+        /// </summary>
+        private float ui_width;
+
+        /// <summary>
+        /// Call it something else instead.
+        /// </summary>
+        private float displayLength;
+
+        /// <summary>
         /// Ideally use default for SerializeField because it prevents an annoying warning.
         /// However, if the var is really annoying to set in the inspector consider
         /// setting a default value that is neutral, but don't rely on it.
@@ -122,10 +137,35 @@ namespace ProjectNameHere
         /// </summary>
         public void DoSomePublicVoid() 
         {
-
+            // Code here.
         }
 
+        public virtual void SomeEmptyVirtualMethod() { }
+
         private float DoSomeTinyMethod() => somePrivateFloat;
+
+        private void ThisIsAllowedIfTheLineIsntTooLong() => coolInterfaceUsage?.DoSomethingAwsome();
+        private void SoThisGood() => coolInterfaceUsage?.DoSomethingAwsome();
+
+        private void Dont_Name_It_Like_This() 
+        {
+            // Code here.
+        }
+
+        private void or_like_this() 
+        {
+            // Code here.
+        }
+
+        private void PleaseDontDoThisInThisLanguage() { 
+            // Unless you are using C++ ?
+            // Btw ! and ? and ... are allowed like that !
+        }
+
+        private void ThatsBetter() 
+        {
+            // Code here.
+        }
 
         public class Example1 : SomeInterface
         {
