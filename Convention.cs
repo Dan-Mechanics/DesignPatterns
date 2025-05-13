@@ -202,6 +202,7 @@ namespace ProjectNameHere
         /// <summary>
         /// You could place event args here, but you dont have to.
         /// Consider using structs and Actions instead.
+        /// If you do, place the structs at the end like usual.
         /// </summary>
         public class SomeEventArgs : EventArgs 
         {
