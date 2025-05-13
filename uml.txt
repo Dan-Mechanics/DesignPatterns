@@ -1,6 +1,5 @@
 @startuml
 
-
 class FSM<T>
 {
     - states: readonly Dictionary<Type, T>
@@ -38,13 +37,15 @@ interface IWeapon
     + AudioClip GetReloadSound()
 }
 
-
 class WeaponState implements IState
 {
     # fsm: FSM<WeaponState>
     # inputHandler: InputHandler 
     # weapon: IWeapon
     # source: AudioSource 
+    + virutal void EnterState()
+    + virutal void Update()
+    + virutal void ExitState()
     + void UpdateWeapon(weapon: IWeapon)
 }
 
@@ -62,7 +63,7 @@ class WeaponDecorator implements ScriptableObject, IWeapon
 {
     - weapon: IWeapon
     + IWeapon GetUnderlyingWeapon()
-    + WeaponDecorator(weapon: IWeapon)
+    + WeaponDecorator Decorate(weapon: IWeapon)
 }
 
 class SilencerDecorator implements WeaponDecorator
@@ -82,20 +83,23 @@ class SpreadDecorator implements WeaponDecorator
 
 class ReadyWeaponState implements WeaponState
 {
-    - isTriggerHeld: bool 
-    - nextShootTime: float 
-    - bulletsLeft: int 
-    - eyes: Transform 
-    - pool: GameObjectPool
+    + void EnterState()
+    + void Update()
+    + void ExitState()
+    + void Reload()
 }
 
 class ReloadingWeaponState implements WeaponState
 {
     + onReload : event Action
+    + void EnterState()
+    + void Update()
+    + void ExitState()
 }
 
 class ToggleDecoratorWeaponState implements WeaponState
 {
+    - removableDecorator: WeaponDecorator
     + onNewWeapon : event Action
 }
 
@@ -105,6 +109,18 @@ class InputHandler
     + InputEvents GetInputEvents(playerAction: PlayerAction)
     + AddBinding(binding: Binding)
     + RemoveBinding(binding: Binding)
+}
+
+class GameObjectPool
+{
+    + void GiveToPool(go: GameOjbect)
+    + GameObject GetFromPool()
+    + void DumpAll()
+}
+
+class PoolableGameObject
+{
+    + void Setup(pool: GameObjectPool)
 }
 
 class Timer

@@ -64,7 +64,7 @@ namespace DesignPatterns
         private void SetupStates(IWeapon weapon)
         {
             var reloading = new ReloadingWeaponState(fsm, inputHandler, weapon, source).Setup();
-            var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(loadoutAssembler);
+            var toggle = new ToggleDecoratorWeaponState(fsm, inputHandler, weapon, source).Setup(removableDecorator);
             var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(eyes, pool);
 
             reloading.OnReload += ready.Reload;
