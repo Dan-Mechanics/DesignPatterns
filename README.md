@@ -1,2 +1,2 @@
 # DesignPatterns
-![UML IMAGE.](https://github.com/Dan-Mechanics/DesignPatterns/blob/main/uml_image.png?raw=true)
+![UML IMAGE.](https://github.com/Dan-Mechanics/DesignPatterns/blob/main/image.png?raw=true)
