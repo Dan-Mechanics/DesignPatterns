@@ -25,6 +25,7 @@ namespace DesignPatterns
             this.pool = pool;
             //reloading.OnReload += Reload;
             Reload();
+            inputHandler.GetInputEvents(PlayerAction.PrimaryFire).OnChange += OnTriggerHeldChanged;
 
             return this;
         }
@@ -33,10 +34,10 @@ namespace DesignPatterns
         {
             base.EnterState();
 
-            isTriggerHeld = false;
+         //   isTriggerHeld = false;
             nextShootTime = Time.time;
 
-            inputHandler.GetInputEvents(PlayerAction.PrimaryFire).OnChange += OnTriggerHeldChanged;
+           // inputHandler.GetInputEvents(PlayerAction.PrimaryFire).OnChange += OnTriggerHeldChanged;
             inputHandler.GetInputEvents(PlayerAction.Reload).OnDown += TryReload;
             inputHandler.GetInputEvents(PlayerAction.SecondaryFire).OnDown += ToggleDecorator;
         }
@@ -60,9 +61,9 @@ namespace DesignPatterns
         {
             base.ExitState();
 
-            isTriggerHeld = false;
+           // isTriggerHeld = false;
 
-            inputHandler.GetInputEvents(PlayerAction.PrimaryFire).OnChange -= OnTriggerHeldChanged;
+         //   inputHandler.GetInputEvents(PlayerAction.PrimaryFire).OnChange -= OnTriggerHeldChanged;
             inputHandler.GetInputEvents(PlayerAction.Reload).OnDown -= TryReload;
             inputHandler.GetInputEvents(PlayerAction.SecondaryFire).OnDown -= ToggleDecorator;
         }
