@@ -556,8 +556,6 @@ MonoBehaviour:
     playerAction: 2
   - key: 114
     playerAction: 3
-  - key: 114
-    playerAction: 3
   baseWeapon: {fileID: 11400000, guid: 1b2761aeaec763c4c9d93902dcfdb5ce, type: 2}
   removableDecorator: {fileID: 11400000, guid: 51ececa596e3b1d44a7fd8ad9960f212, type: 2}
   weaponDecorators:
