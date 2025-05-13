@@ -1,3 +1,5 @@
+i need to remove the ugly comments and make sure i follow my own convention LOL.
+
 we could say that weaponstate dont need FSM and use events ?
 
 hoe kan ik deze sysmten nog verder expanden om het beter te maken?
