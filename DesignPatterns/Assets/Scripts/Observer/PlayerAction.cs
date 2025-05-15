@@ -7,6 +7,6 @@
         SecondaryFire = 2,
         Reload = 3,
         Inspect = 4 
-            // You name it
+            // Etc, etc ...
     }
 }

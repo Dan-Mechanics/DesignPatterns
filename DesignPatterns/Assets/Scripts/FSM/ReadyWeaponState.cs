@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DesignPatterns
 {
     public class ReadyWeaponState : WeaponState
     {
+        public event Action PlayInspectAnimation;
+        
         private bool isTriggerHeld;
         private float nextShootTime;
         private int bulletsLeft;
@@ -27,6 +30,7 @@ namespace DesignPatterns
             nextShootTime = Time.time;
             inputHandler.GetInputEvents(PlayerAction.Reload).OnDown += TryReload;
             inputHandler.GetInputEvents(PlayerAction.SecondaryFire).OnDown += ToggleDecorator;
+            inputHandler.GetInputEvents(PlayerAction.Inspect).OnDown += PlayInspectAnimation;
         }
 
         public override void Update()
@@ -45,6 +49,7 @@ namespace DesignPatterns
 
             inputHandler.GetInputEvents(PlayerAction.Reload).OnDown -= TryReload;
             inputHandler.GetInputEvents(PlayerAction.SecondaryFire).OnDown -= ToggleDecorator;
+            inputHandler.GetInputEvents(PlayerAction.Inspect).OnDown -= PlayInspectAnimation;
         }
 
         private void OnTriggerHeldChanged(bool onDown) => isTriggerHeld = onDown;
@@ -85,7 +90,7 @@ namespace DesignPatterns
         private Vector3 GetShootingDirection() 
         {
             Vector3 dir = eyes.forward;
-            Vector2 rand = Random.insideUnitCircle;
+            Vector2 rand = UnityEngine.Random.insideUnitCircle;
             dir += rand.y * weapon.GetSpread() * eyes.up;
             dir += rand.x * weapon.GetSpread() * eyes.right;
 

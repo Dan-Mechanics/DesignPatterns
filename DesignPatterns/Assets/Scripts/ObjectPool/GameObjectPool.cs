@@ -3,9 +3,6 @@ using UnityEngine;
 
 namespace DesignPatterns
 {
-    /// <summary>
-    /// You could make this use an interface... in the sense that it might come across as more modular that way... ??
-    /// </summary>
     public class GameObjectPool
     {
         private readonly GameObject prefab;

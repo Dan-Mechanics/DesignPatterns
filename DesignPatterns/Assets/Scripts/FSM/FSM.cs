@@ -20,10 +20,9 @@ namespace DesignPatterns
         }
 
         /// <summary>
-        /// Remove this state and make current null or current is the 
+        /// Remove this state and make current null if current is the 
         /// one we want to remove.
         /// </summary>
-        /// <param name="name"></param>
         public void RemoveState(string name)
         {
             if (!states.ContainsKey(name))
