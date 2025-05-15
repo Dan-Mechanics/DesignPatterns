@@ -13,10 +13,9 @@ namespace DesignPatterns
         [SerializeField] private List<InputHandler.Binding> bindings = default;
 
         [Header("Weapon")]
-        [SerializeField] private BaseWeapon baseWeapon = default;
         [SerializeField] private WeaponDecorator removableDecorator = default;
         [Tooltip("The player assembles this before the game starts.")]
-        [SerializeField] private List<WeaponDecorator> weaponDecorators = default;
+        [SerializeField] private LoadoutAssembler loadoutAssembler = default;
 
         [Header("References")]
         [SerializeField] private GameObject bulletImpactEffect = default;
@@ -25,42 +24,25 @@ namespace DesignPatterns
 
         private readonly FSM<WeaponState> fsm = new FSM<WeaponState>();
         private InputHandler inputHandler;
-        private GameObjectPool pool;
 
         private void Start()
         {
-            if (baseWeapon == null || removableDecorator == null)
+            if (loadoutAssembler == null || removableDecorator == null)
             {
-                Debug.LogError(" if (baseWeapon == null || removableDecorator == null)");
+                Debug.LogError(" if (loadoutAssembler == null || removableDecorator == null)");
                 return;
             }
 
-            IWeapon weapon = AssembleWeapon();
+            IWeapon weapon = loadoutAssembler.Assemble();
+
             inputHandler = GetInputHandler();
-            pool = new GameObjectPool(bulletImpactEffect);
-            SetupStates(weapon);
+            SetupStates(weapon, new GameObjectPool(bulletImpactEffect));
         }
 
         private void Update()
         {
             inputHandler.Update();
             fsm.Update();
-        }
-
-        /// <summary>
-        /// Turns this into a class ?
-        /// Feels more like a functioanl something.
-        /// </summary>
-        private IWeapon AssembleWeapon()
-        {
-            IWeapon weapon = baseWeapon;
-
-            for (int i = 0; i < weaponDecorators.Count; i++)
-            {
-                weapon = weaponDecorators[i].Decorate(weapon);
-            }
-
-            return weapon;
         }
 
         private InputHandler GetInputHandler()
@@ -71,7 +53,7 @@ namespace DesignPatterns
             return inputHandler;
         }
 
-        private void SetupStates(IWeapon weapon)
+        private void SetupStates(IWeapon weapon, GameObjectPool pool)
         {
             var reloading = new ReloadingWeaponState();
             var toggle = new ToggleDecoratorWeaponState();

@@ -18,8 +18,8 @@ namespace Valentijn
         void Start()
         {
             fsm = new FSM();
-            IState attackState = new AttackState(this);
-            IState idleState = new IdleState(this);
+            var attackState = new AttackState(this);
+            var idleState = new IdleState(this);
 
             fsm.AddState(attackState);
             fsm.AddState(idleState);
@@ -30,10 +30,10 @@ namespace Valentijn
             fsm.SwitchState(idleState);
         }
 
-        private bool GetShouldReload() 
+        /*private bool GetShouldReload() 
         {
             return Input.GetKey(KeyCode.R) && bulletCount < weapon.GetMaxBullets();
-        }
+        }*/
 
 
         private void Update()
@@ -165,6 +165,11 @@ namespace Valentijn
     public class AttackState : BaseState<DummyFSMEnemy>
     {
         public AttackState(DummyFSMEnemy owner) : base(owner) { }
+
+        /*private bool GetShouldReload()
+        {
+            return Input.GetKey(KeyCode.R) && bulletCount < weapon.GetMaxBullets();
+        }*/
 
         public override void OnEnter()
         {

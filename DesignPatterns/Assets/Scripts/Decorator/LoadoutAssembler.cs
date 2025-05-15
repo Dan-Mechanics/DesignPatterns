@@ -5,8 +5,8 @@ namespace DesignPatterns
     [Serializable]
     public class LoadoutAssembler 
     {
-        private readonly BaseWeapon baseWeapon;
-        private readonly WeaponDecorator[] weaponDecorators;
+        public BaseWeapon baseWeapon;
+        public WeaponDecorator[] weaponDecorators;
 
         public LoadoutAssembler(BaseWeapon baseWeapon, WeaponDecorator[] weaponDecorators)
         {

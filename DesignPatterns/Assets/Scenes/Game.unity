@@ -556,11 +556,12 @@ MonoBehaviour:
     playerAction: 2
   - key: 114
     playerAction: 3
-  baseWeapon: {fileID: 11400000, guid: 1b2761aeaec763c4c9d93902dcfdb5ce, type: 2}
   removableDecorator: {fileID: 11400000, guid: 51ececa596e3b1d44a7fd8ad9960f212, type: 2}
-  weaponDecorators:
-  - {fileID: 11400000, guid: 78fb100993519e84a9c9ff5f02b04ccc, type: 2}
-  - {fileID: 11400000, guid: bc9b8284df2cf5f4bbc7df0de185c268, type: 2}
+  loadoutAssembler:
+    baseWeapon: {fileID: 11400000, guid: 1b2761aeaec763c4c9d93902dcfdb5ce, type: 2}
+    weaponDecorators:
+    - {fileID: 11400000, guid: 78fb100993519e84a9c9ff5f02b04ccc, type: 2}
+    - {fileID: 11400000, guid: bc9b8284df2cf5f4bbc7df0de185c268, type: 2}
   bulletImpactEffect: {fileID: 4335094639938529301, guid: aa7fbbc42c80673418725368497a4d0c, type: 3}
   eyes: {fileID: 963194228}
   source: {fileID: 1198277835}
