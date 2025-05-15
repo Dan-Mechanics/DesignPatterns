@@ -82,9 +82,9 @@ namespace DesignPatterns
 
             hit.transform.GetComponent<IDamagable>()?.Damage(weapon.GetDamage());
 
-            GameObject effect = pool.GetFromPool();
-            effect.transform.position = hit.point;
-            effect.transform.forward = hit.normal;
+            Transform effect = pool.GetFromPool().transform;
+            effect.position = hit.point;
+            effect.forward = hit.normal;
         }
 
         private Vector3 GetShootingDirection() 
