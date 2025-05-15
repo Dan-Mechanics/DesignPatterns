@@ -8,8 +8,6 @@ namespace DesignPatterns
         public event Action OnReload;
         private Timer timer;
 
-      //  public ReloadingWeaponState(InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(inputHandler, weapon, source) { }
-
         public ReloadingWeaponState Setup() 
         {
             timer = new Timer();
@@ -30,8 +28,7 @@ namespace DesignPatterns
             base.Update();
 
             if (timer.Tick(Time.deltaTime))
-                OnTransitionRequest?.Invoke(READY_STATE_NAME);
-                //fsm.TransitionTo(typeof(ReadyWeaponState));
+                TransitonTo(READY_STATE_NAME);
         }
 
         public override void ExitState()

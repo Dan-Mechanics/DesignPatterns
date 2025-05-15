@@ -15,13 +15,15 @@ namespace DesignPatterns
         public void AddState(string name, T state)
         {
             states.Add(name, state);
+            state.OnTransitionRequest += TransitionTo;
             Debug.Log($"added {name}");
         }
 
         /// <summary>
-        /// Technically speaking you shouldn't be allowed
-        /// to remove states ...
+        /// Remove this state and make current null or current is the 
+        /// one we want to remove.
         /// </summary>
+        /// <param name="name"></param>
         public void RemoveState(string name)
         {
             if (!states.ContainsKey(name))
@@ -46,14 +48,6 @@ namespace DesignPatterns
 
             Debug.Log($"state is now <b>{name}</b>");
         }
-
-        /*public void TransitionTo(string name)
-        {
-            if (state == null)
-                return;
-            
-            TransitionTo(state.GetType());
-        }*/
 
         public List<T> GetStates() => states.Values.ToList();
     }

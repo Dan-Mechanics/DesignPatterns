@@ -2,13 +2,6 @@
 
 namespace DesignPatterns
 {
-    /// <summary>
-    /// Make sure to look at lsikov subsitution princple for this shit.
-    /// 
-    /// We could have it so that we can keep holding down the input and it keeps firing.
-    /// 
-    /// I could make a builder for this ?
-    /// </summary>
     public class ReadyWeaponState : WeaponState
     {
         private bool isTriggerHeld;
@@ -16,8 +9,6 @@ namespace DesignPatterns
         private int bulletsLeft;
         private Transform eyes;
         private GameObjectPool pool;
-
-     //   public ReadyWeaponState(InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(inputHandler, weapon, source) { }
 
         public ReadyWeaponState Setup(Transform eyes, GameObjectPool pool) 
         {
@@ -68,11 +59,11 @@ namespace DesignPatterns
             if (bulletsLeft >= weapon.GetMaxBullets())
                 return;
 
-            OnTransitionRequest?.Invoke(RELOADING_STATE_NAME);
+            TransitonTo(RELOADING_STATE_NAME);
         }
 
         public void Reload() => bulletsLeft = weapon.GetMaxBullets();
-        private void ToggleDecorator() => OnTransitionRequest?.Invoke(TOGGLE_STATE_NAME);
+        private void ToggleDecorator() => TransitonTo(TOGGLE_STATE_NAME);
 
         private void ShootBullet()
         {

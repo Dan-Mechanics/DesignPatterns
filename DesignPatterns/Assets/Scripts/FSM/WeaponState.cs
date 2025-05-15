@@ -5,32 +5,21 @@ namespace DesignPatterns
 {
     public abstract class WeaponState : IState
     {
-        public Action<string> OnTransitionRequest;
+        public event Action<string> OnTransitionRequest;
 
         public const string READY_STATE_NAME = "ready";
-        public const string RELOADING_STATE_NAME = "ready";
-        public const string TOGGLE_STATE_NAME = "ready";
+        public const string RELOADING_STATE_NAME = "reloading";
+        public const string TOGGLE_STATE_NAME = "toggle";
 
-    //    protected FSM<WeaponState> fsm;
         protected InputHandler inputHandler;
         protected IWeapon weapon;
         protected AudioSource source;
 
-        /*protected WeaponState(InputHandler inputHandler, IWeapon weapon, AudioSource source)
-        {
-            //this.fsm = fsm;
-            this.inputHandler = inputHandler;
-            UpdateWeapon(weapon);
-            this.source = source;
-        }*/
-
-        public WeaponState SetupBase(InputHandler inputHandler, IWeapon weapon, AudioSource source) 
+        public void SetupBase(InputHandler inputHandler, IWeapon weapon, AudioSource source) 
         {
             this.inputHandler = inputHandler;
             UpdateWeapon(weapon);
             this.source = source;
-
-            return this;
         }
 
         public virtual void EnterState() { }
@@ -38,5 +27,6 @@ namespace DesignPatterns
         public virtual void ExitState() { }
 
         public void UpdateWeapon(IWeapon weapon) => this.weapon = weapon;
+        protected void TransitonTo(string name) => OnTransitionRequest?.Invoke(name);
     }
 }

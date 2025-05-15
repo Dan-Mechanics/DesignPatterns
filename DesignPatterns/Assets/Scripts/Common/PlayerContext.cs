@@ -66,9 +66,13 @@ namespace DesignPatterns
 
         private void SetupStates(IWeapon weapon)
         {
-            var reloading = new ReloadingWeaponState().Setup();
-            var toggle = new ToggleDecoratorWeaponState().Setup(removableDecorator);
-            var ready = new ReadyWeaponState().Setup(eyes, pool);
+            var reloading = new ReloadingWeaponState();
+            var toggle = new ToggleDecoratorWeaponState();
+            var ready = new ReadyWeaponState();
+
+            fsm.AddState(WeaponState.READY_STATE_NAME, ready);
+            fsm.AddState(WeaponState.RELOADING_STATE_NAME, reloading);
+            fsm.AddState(WeaponState.TOGGLE_STATE_NAME, toggle);
 
             reloading.OnReload += ready.Reload;
             foreach (var state in fsm.GetStates())
@@ -77,9 +81,9 @@ namespace DesignPatterns
                 toggle.OnNewWeapon += state.UpdateWeapon;
             }
 
-            fsm.AddState(WeaponState.RELOADING_STATE_NAME, reloading);
-            fsm.AddState(WeaponState.READY_STATE_NAME, ready);
-            fsm.AddState(WeaponState.TOGGLE_STATE_NAME, toggle);
+            reloading.Setup();
+            toggle.Setup(removableDecorator);
+            ready.Setup(eyes, pool);
 
             fsm.TransitionTo(WeaponState.READY_STATE_NAME);
         }

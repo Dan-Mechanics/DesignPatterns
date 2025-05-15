@@ -10,8 +10,6 @@ namespace DesignPatterns
         private WeaponDecorator removableDecorator;
         private bool hasDecorated;
 
-     //   public ToggleDecoratorWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
-
         public ToggleDecoratorWeaponState Setup(WeaponDecorator removableDecorator)
         {
             this.removableDecorator = removableDecorator;
@@ -33,7 +31,7 @@ namespace DesignPatterns
             base.Update();
 
             if (timer.Tick(Time.deltaTime))
-                OnTransitionRequest?.Invoke(READY_STATE_NAME);
+                TransitonTo(READY_STATE_NAME);
         }
 
         public override void ExitState()
