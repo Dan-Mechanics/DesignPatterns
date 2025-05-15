@@ -64,6 +64,7 @@ namespace DesignPatterns
             fsm.AddState(WeaponState.TOGGLE_STATE_NAME, toggle);
 
             reloading.OnReload += ready.Reload;
+            ready.PlayInspectAnimation += DummyPlayInspectAnimation;
             foreach (var state in fsm.GetStates())
             {
                 state.SetupBase(inputHandler, weapon, source);
@@ -75,6 +76,11 @@ namespace DesignPatterns
             ready.Setup(eyes, pool);
 
             fsm.TransitionTo(WeaponState.READY_STATE_NAME);
+        }
+
+        private void DummyPlayInspectAnimation() 
+        {
+            Debug.Log("playing inspect animation");
         }
     }
 }

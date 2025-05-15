@@ -3,6 +3,7 @@ using UnityEngine;
 namespace DesignPatterns
 {
     /// <summary>
+    /// Reference:
     /// https://www.youtube.com/watch?v=o5Iwu5wpINQ
     /// </summary>
     public abstract class WeaponDecorator : ScriptableObject, IWeapon
