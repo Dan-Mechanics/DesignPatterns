@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DesignPatterns
 {
     /// <summary>
-    /// Note: this script is the context and is therefore the least reusable.
+    /// Note: this is the context script and is therefore least reusable.
     /// </summary>
     public class PlayerContext : MonoBehaviour
     {

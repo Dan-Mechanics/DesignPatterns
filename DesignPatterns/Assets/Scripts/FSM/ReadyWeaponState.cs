@@ -39,11 +39,6 @@ namespace DesignPatterns
             ShootBullet();
         }
 
-        private bool CanShootBullet()
-        {
-            return isTriggerHeld && Time.time >= nextShootTime && bulletsLeft > 0;
-        }
-
         public override void ExitState()
         {
             base.ExitState();
@@ -53,6 +48,8 @@ namespace DesignPatterns
         }
 
         private void OnTriggerHeldChanged(bool onDown) => isTriggerHeld = onDown;
+        public void Reload() => bulletsLeft = weapon.GetMaxBullets();
+        private void ToggleDecorator() => TransitonTo(TOGGLE_STATE_NAME);
 
         private void TryReload()
         {
@@ -62,8 +59,10 @@ namespace DesignPatterns
             TransitonTo(RELOADING_STATE_NAME);
         }
 
-        public void Reload() => bulletsLeft = weapon.GetMaxBullets();
-        private void ToggleDecorator() => TransitonTo(TOGGLE_STATE_NAME);
+        private bool CanShootBullet()
+        {
+            return isTriggerHeld && Time.time >= nextShootTime && bulletsLeft > 0;
+        }
 
         private void ShootBullet()
         {

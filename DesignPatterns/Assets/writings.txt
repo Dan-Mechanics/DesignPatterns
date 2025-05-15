@@ -6,6 +6,11 @@
     /// I could make a builder for this ?
     /// </summary>
 
+i have noticed a commonality between toggle weapon state and reloading
+that is that something happens when onexit and it uses timers.
+
+i have to rewrite the documetntion for FSM to describe why i did it that way.
+
 what i need to do now is redo the docuetnation and erdothe the uml
 and then remove all the shitty comments and maybe add some itnerfaces here and there but prolly
 not and then you are done, and if its sucseful merge to main and make a source branch and link to both source and not source

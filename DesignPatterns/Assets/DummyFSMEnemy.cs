@@ -24,8 +24,8 @@ namespace Valentijn
             fsm.AddState(attackState);
             fsm.AddState(idleState);
 
-            fsm.AddTransition(new Transition(idleState, attackState, () => GetShouldReload()));
-            fsm.AddTransition(new Transition(attackState, idleState, () => GetShouldReload()));
+           // fsm.AddTransition(new Transition(idleState, attackState, () => GetShouldReload()));
+           // fsm.AddTransition(new Transition(attackState, idleState, () => GetShouldReload()));
 
             fsm.SwitchState(idleState);
         }
