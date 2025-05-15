@@ -1,3 +1,14 @@
+    /// <summary>
+    /// Make sure to look at lsikov subsitution princple for this shit.
+    /// 
+    /// You could add weapon swapping in the futuer as a way to animation cancel ??
+    /// 
+    /// Or the states spawn in objects in the setup.
+    /// </summary>
+
+// we need to make sure the code is nicely readable.
+// i woudl also like to see the transitons in actions.
+
 i need to remove the ugly comments and make sure i follow my own convention LOL.
 
 we could say that weaponstate dont need FSM and use events ?

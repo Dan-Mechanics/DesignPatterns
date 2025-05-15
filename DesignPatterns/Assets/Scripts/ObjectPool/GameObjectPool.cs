@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DesignPatterns
 {
     /// <summary>
-    /// You could make this have an interface...
+    /// You could make this use an interface... in the sense that it might come across as more modular that way... ??
     /// </summary>
     public class GameObjectPool
     {
@@ -42,7 +42,7 @@ namespace DesignPatterns
 
         public void GiveToPool(GameObject go)
         {
-            // we cant add something if it dosnt exist to us.
+            // We cant add something if it dosnt exist to us.
             if (!active.Contains(go))
                 return;
 

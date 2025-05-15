@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 namespace DesignPatterns
 {
@@ -36,7 +35,7 @@ namespace DesignPatterns
             // but then multible keys can point to the same action still.
 
             // Or we have it that one key does one thing and an action can only have
-            // one thing associated with it, but what's the fun in that ?
+            // one key associated with it, but what's the fun in that ?
 
             if (bindings.Find(x => x.playerAction == binding.playerAction) != null)
             {

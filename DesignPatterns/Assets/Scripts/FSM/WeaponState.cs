@@ -1,16 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DesignPatterns
 {
-    /// <summary>
-    /// Make sure to look at lsikov subsitution princple for this shit.
-    /// 
-    /// You could add weapon swapping in the futuer as a way to animation cancel ??
-    /// 
-    /// Or the states spawn in objects in the setup.
-    /// </summary>
     public abstract class WeaponState : IState
     {
+        public Action<string> OnTransitionRequest;
+
+        public const string READY_WEAPON_NAME = "ready";
+        public const string RELOADING_WEAPON_NAME = "ready";
+        public const string TOGGLE_WEAPON_NAME = "ready";
+
         protected FSM<WeaponState> fsm;
         protected InputHandler inputHandler;
         protected IWeapon weapon;

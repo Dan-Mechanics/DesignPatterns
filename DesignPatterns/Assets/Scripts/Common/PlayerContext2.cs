@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DesignPatterns
 {
-    public class PlayerContext : MonoBehaviour
+    public class PlayerContext2 : MonoBehaviour
     {
         [Header("Bindings")]
         [Tooltip("This should come from config file.")]
@@ -20,7 +20,7 @@ namespace DesignPatterns
         [SerializeField] private Transform eyes = default;
         [SerializeField] private AudioSource source = default;
 
-        private readonly FSM<WeaponState> fsm = new FSM<WeaponState>();
+        private readonly FSM2<WeaponState> fsm = new FSM2<WeaponState>();
         private InputHandler inputHandler;
         private GameObjectPool pool;
 
@@ -71,6 +71,8 @@ namespace DesignPatterns
             var ready = new ReadyWeaponState(fsm, inputHandler, weapon, source).Setup(eyes, pool);
 
             reloading.OnReload += ready.Reload;
+
+            reloading.OnTransitionRequest += fsm.TransitionTo;
 
             fsm.AddState(reloading);
             fsm.AddState(toggle);
