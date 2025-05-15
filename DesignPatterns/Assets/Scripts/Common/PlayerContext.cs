@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace DesignPatterns
 {
+    /// <summary>
+    /// Note: this script is the context and is therefore the least reusable.
+    /// </summary>
     public class PlayerContext : MonoBehaviour
     {
         [Header("Bindings")]
@@ -44,6 +47,10 @@ namespace DesignPatterns
             fsm.Update();
         }
 
+        /// <summary>
+        /// Turns this into a class ?
+        /// Feels more like a functioanl something.
+        /// </summary>
         private IWeapon AssembleWeapon()
         {
             IWeapon weapon = baseWeapon;
