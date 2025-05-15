@@ -4,10 +4,9 @@ class FSM<T>
 {
     - states: readonly Dictionary<Type, T>
     -current: T
-    + void AddState(state: T)
-    + void RemoveState(state: T)
-    + void TransitionTo(state: Type)
-    + void TransitionTo(state: T)
+    + void AddState(name: string, state: T)
+    + void RemoveState(name: string)
+    + void TransitionTo(name: string)
     + void Update()
     + List<T> GetStates()
 }
@@ -19,6 +18,7 @@ interface IDamagable
 
 interface IState 
 {
+    + OnTransitionRequest: event Action<string>
     + void EnterState()
     + void Update()
     + void ExitState()
@@ -43,6 +43,7 @@ class WeaponState implements IState
     # inputHandler: InputHandler 
     # weapon: IWeapon
     # source: AudioSource 
+    + void SetupBase()
     + virutal void EnterState()
     + virutal void Update()
     + virutal void ExitState()
