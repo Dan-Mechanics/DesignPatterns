@@ -7,21 +7,30 @@ namespace DesignPatterns
     {
         public Action<string> OnTransitionRequest;
 
-        public const string READY_WEAPON_NAME = "ready";
-        public const string RELOADING_WEAPON_NAME = "ready";
-        public const string TOGGLE_WEAPON_NAME = "ready";
+        public const string READY_STATE_NAME = "ready";
+        public const string RELOADING_STATE_NAME = "ready";
+        public const string TOGGLE_STATE_NAME = "ready";
 
-        protected FSM<WeaponState> fsm;
+    //    protected FSM<WeaponState> fsm;
         protected InputHandler inputHandler;
         protected IWeapon weapon;
         protected AudioSource source;
 
-        protected WeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source)
+        /*protected WeaponState(InputHandler inputHandler, IWeapon weapon, AudioSource source)
         {
-            this.fsm = fsm;
+            //this.fsm = fsm;
             this.inputHandler = inputHandler;
             UpdateWeapon(weapon);
             this.source = source;
+        }*/
+
+        public WeaponState SetupBase(InputHandler inputHandler, IWeapon weapon, AudioSource source) 
+        {
+            this.inputHandler = inputHandler;
+            UpdateWeapon(weapon);
+            this.source = source;
+
+            return this;
         }
 
         public virtual void EnterState() { }

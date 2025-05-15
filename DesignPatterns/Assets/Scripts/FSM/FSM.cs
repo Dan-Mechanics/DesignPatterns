@@ -7,53 +7,53 @@ namespace DesignPatterns
 {
     public class FSM<T> where T : IState
     {
-        private readonly Dictionary<Type, T> states = new Dictionary<Type, T>();
+        private readonly Dictionary<string, T> states = new Dictionary<string, T>();
         private T current;
 
         public void Update() => current?.Update();
 
-        public void AddState(T state)
+        public void AddState(string name, T state)
         {
-            Debug.Log($"added {state.GetType()}");
-            states.Add(state.GetType(), state);
+            states.Add(name, state);
+            Debug.Log($"added {name}");
         }
 
         /// <summary>
         /// Technically speaking you shouldn't be allowed
         /// to remove states ...
         /// </summary>
-        public void RemoveState(Type type)
+        public void RemoveState(string name)
         {
-            Debug.Log($"removed {type}");
-
-            if (current.GetType() == type)
+            if (!states.ContainsKey(name))
+                return;
+            
+            if (current.Equals(states[name]))
                 current = default;
 
-            if (!states.ContainsKey(type))
-                return;
+            states.Remove(name);
 
-            states.Remove(type);
+            Debug.Log($"removed {name}");
         }
 
-        public void TransitionTo(Type type)
+        public void TransitionTo(string name)
         {
-            if (!states.ContainsKey(type))
+            if (!states.ContainsKey(name))
                 return;
 
             current?.ExitState();
-            current = states[type];
+            current = states[name];
             current.EnterState();
 
-            Debug.Log($"state is now <b>{current.GetType()}</b>");
+            Debug.Log($"state is now <b>{name}</b>");
         }
 
-        public void TransitionTo(T state)
+        /*public void TransitionTo(string name)
         {
             if (state == null)
                 return;
             
             TransitionTo(state.GetType());
-        }
+        }*/
 
         public List<T> GetStates() => states.Values.ToList();
     }

@@ -1,3 +1,8 @@
+what i need to do now is redo the docuetnation and erdothe the uml
+and then remove all the shitty comments and maybe add some itnerfaces here and there but prolly
+not and then you are done, and if its sucseful merge to main and make a source branch and link to both source and not source
+in the doucmetnaiton. you have till tomorrow night, you got this !
+
     /// <summary>
     /// Make sure to look at lsikov subsitution princple for this shit.
     /// 

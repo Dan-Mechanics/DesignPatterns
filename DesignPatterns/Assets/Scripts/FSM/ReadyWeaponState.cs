@@ -17,7 +17,7 @@ namespace DesignPatterns
         private Transform eyes;
         private GameObjectPool pool;
 
-        public ReadyWeaponState(FSM<WeaponState> fsm, InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(fsm, inputHandler, weapon, source) { }
+     //   public ReadyWeaponState(InputHandler inputHandler, IWeapon weapon, AudioSource source) : base(inputHandler, weapon, source) { }
 
         public ReadyWeaponState Setup(Transform eyes, GameObjectPool pool) 
         {
@@ -68,11 +68,11 @@ namespace DesignPatterns
             if (bulletsLeft >= weapon.GetMaxBullets())
                 return;
 
-            fsm.TransitionTo(typeof(ReloadingWeaponState));
+            OnTransitionRequest?.Invoke(RELOADING_STATE_NAME);
         }
 
         public void Reload() => bulletsLeft = weapon.GetMaxBullets();
-        private void ToggleDecorator() => fsm.TransitionTo(typeof(ToggleDecoratorWeaponState));
+        private void ToggleDecorator() => OnTransitionRequest?.Invoke(TOGGLE_STATE_NAME);
 
         private void ShootBullet()
         {
