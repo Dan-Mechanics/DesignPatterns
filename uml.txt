@@ -39,6 +39,7 @@ interface IWeapon
 
 class WeaponState implements IState
 {
+    + OnTransitionRequest: event Action<string>
     # fsm: FSM<WeaponState>
     # inputHandler: InputHandler 
     # weapon: IWeapon
